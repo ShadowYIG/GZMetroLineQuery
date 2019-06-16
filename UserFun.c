@@ -6,6 +6,7 @@
 #include "main.h"
 #include "utility.h"
 #include "UserFun.h"
+#include "AdminFun.h"
 extern Graph G;
 extern lineinfo L[MAXLINESUM];
 extern int  MaxLine;
@@ -70,6 +71,7 @@ void PrintStation(int lNum){
 /*喘薩嫋泣佚連遊*/ 
 void UserStationHead(void){
 	system("cls");
+	printf("\n\n");
 	printf("\t\t\t|-！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！-|\n");
 	printf("\t\t\t|                               ");
 	color(2);
@@ -84,6 +86,7 @@ void UserStationHead(void){
 /*喘薩嫋泣佚連遊2*/ 
 void UserStationHead2(void){
 	system("cls");
+	printf("\n\n");
 	printf("\t\t\t|-！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！|\n");
 	printf("\t\t\t|                           ");
 	color(2);
@@ -97,6 +100,7 @@ void UserStationHead2(void){
 /*喘薩嫋泣佚連遊3*/ 
 void UserStationHead3(void){
 	system("cls");
+	printf("\n\n");
 	printf("\t\t\t|-！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！-|\n");
 	printf("\t\t\t|                               ");
 	color(2);
@@ -252,6 +256,7 @@ void PrintStationInfo(int lNum,int sNum){
 void PrintTicketPice(int from,int to){
 	char temp[100];
 	system("cls");
+	printf("\n\n");
 	printf("\t\t\t\t| ！！！！！！！！！！！！！！！！！！！！！！！|\n");
 	printf("\t\t\t\t|                ");
 	color(2);
@@ -737,6 +742,7 @@ void QueryTicketPrice(void){
 /*補竃�濛経渡�*/ 
 void PrintLineInfo(int lNum){
 	char temp[300];
+	printf("\n\n");
 	printf("\t\t\t|-！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！-|\n");
 	printf("\t\t\t|                               ");
 	color(2);
@@ -800,6 +806,7 @@ void QueryLine(void){
 	while(1){
 		flag=0;
 		system("cls");
+		printf("\n\n");
 		printf("\t\t\t|-！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！-|\n");
 		printf("\t\t\t|                               ");
 		color(2);

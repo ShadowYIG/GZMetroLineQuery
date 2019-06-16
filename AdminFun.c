@@ -377,21 +377,21 @@ void SiteAddition(void){
 		color(2);
 		printf("\t\t\t\t添加成功\n");
 		color(7);
-		printf("\n\t\t\t\t你添加的信息如下：\n");
+		printf("\n\t\t\t你添加的信息如下：\n");
 		if(station.lineno==9999){
 			PrintAddStaInfo(9999,0);
 		}else{
 			PrintAddStaInfo(lnum,snum);
 		}
-		printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
+		printf("\n\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
 		ch=getch();
 		menu(2);
 
 	}else{
 		color(4);
-		printf("\t\t\t\t添加失败\n");
+		printf("\t\t\t添加失败\n");
 		color(7);
-		printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
+		printf("\n\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
 		ch=getch();
 		menu(2);
 	}
@@ -410,7 +410,7 @@ int SelectAddres(stationinfo *station,int code,int *lnum,int *snum){
 			AdminLineHead();
 			nrindex=AdminPrintLine(1);
 			AdminStationTailAllNo();
-			printf("\t\t\t\t请输入线路序号：【  】\b\b\b\b");
+			printf("\t\t\t请输入线路序号：【  】\b\b\b\b");
 			color(9);
 			scanf("%d",&LineNum); 
 			if(nrindex<LineNum){
@@ -419,12 +419,12 @@ int SelectAddres(stationinfo *station,int code,int *lnum,int *snum){
 			color(7);
 			while(LineNum<=0 && LineNum-1>=lineSum && L[LineNum-1].stationsum>=MAXSTATIONSUM && nrindex!=LineNum){
 				color(4);
-				printf("\t\t\t\t输入错误\n");
+				printf("\t\t\t输入错误\n");
 				if(L[LineNum-1].stationsum>=MAXSTATIONSUM){
-					printf("\t\t\t\t该线路站点数过多\n"); 
+					printf("\t\t\t该线路站点数过多\n"); 
 				}
 				color(7);
-				printf("\t\t\t\t请重新输入线路序号：【  】\b\b\b\b");
+				printf("\t\t\t请重新输入线路序号：【  】\b\b\b\b");
 				color(9);
 				scanf("%d",&LineNum); 
 				if(nrindex<LineNum){
@@ -442,7 +442,7 @@ int SelectAddres(stationinfo *station,int code,int *lnum,int *snum){
 				AdminStationHead(); 
 				AdminPrintStation(LineNum-1);
 				AdminStationTailNoM();
-				printf("\t\t\t\t请输入插入位置序号：【  】\b\b\b\b");
+				printf("\t\t\t请输入插入位置序号：【  】\b\b\b\b");
 				color(9);
 				scanf("%s",&sch); 
 				if(strcmp(sch,"q")==0){
@@ -454,9 +454,9 @@ int SelectAddres(stationinfo *station,int code,int *lnum,int *snum){
 				color(7);
 				while(stationNum<=0 && stationNum>=L[LineNum-1].stationsum){
 					color(4);
-					printf("\t\t\t\t输入错误\n");
+					printf("\t\t\t输入错误\n");
 					color(7);
-					printf("\t\t\t\t请重新插入位置序号：【  】\b\b\b\b");
+					printf("\t\t\t请重新插入位置序号：【  】\b\b\b\b");
 					color(9);
 					scanf("%s",sch); 
 					if(strcmp(sch,"q")==0){
@@ -659,7 +659,7 @@ void SiteDeletion(){
 			AdminLineHead();
 			AdminPrintLine(0);
 			AdminStationTailNoM();
-			printf("\t\t\t\t请输入线路序号：【  】\b\b\b\b");
+			printf("\t\t\t请输入线路序号：【  】\b\b\b\b");
 			color(9);
 			scanf("%s",&lch); 
 			color(7);
@@ -672,9 +672,9 @@ void SiteDeletion(){
 			}
 			while(LineNum<=0 && LineNum-1>=lineSum){
 				color(4);
-				printf("\t\t\t\t输入错误\n");
+				printf("\t\t\t输入错误\n");
 				color(7);
-				printf("\t\t\t\t请重新输入线路序号：【  】\b\b\b\b");
+				printf("\t\t\t请重新输入线路序号：【  】\b\b\b\b");
 				color(9);
 				scanf("%s",&lch); 
 				color(7);
@@ -696,7 +696,7 @@ void SiteDeletion(){
 			AdminStationHead(); 
 			AdminPrintStation(LineNum-1);
 			AdminStationTail();
-			printf("\t\t\t\t请输入删除站点序号：【  】\b\b\b\b");
+			printf("\t\t\t请输入删除站点序号：【  】\b\b\b\b");
 			color(9);
 			scanf("%s",&sch); 
 			if(strcmp(sch,"q")==0){
@@ -710,9 +710,9 @@ void SiteDeletion(){
 			color(7);
 			while(stationNum<=0 && stationNum>=L[LineNum-1].stationsum){
 				color(4);
-				printf("\t\t\t\t输入错误\n");
+				printf("\t\t\t输入错误\n");
 				color(7);
-				printf("\t\t\t\t请重新删除站点序号：【  】\b\b\b\b");
+				printf("\t\t\t请重新删除站点序号：【  】\b\b\b\b");
 				color(9);
 				scanf("%s",sch); 
 				if(strcmp(sch,"q")==0){
@@ -735,14 +735,14 @@ void SiteDeletion(){
 	char ch;
 	while(!trueInput){
 		color(4);
-		printf("\t\t\t\t你确定要删除该站点？此操作不可逆[Y/N]【  】\b\b\b\b"); 
+		printf("\t\t\t你确定要删除该站点？此操作不可逆[Y/N]【  】\b\b\b\b"); 
 		color(9);
 		char ch=getch();
 		color(7);
 		switch(ch){
 			case 'Y':
 			case 'y':
-				printf("\n\t\t\t\t正在删除请稍后.....\n"); 
+				printf("\n\t\t\t正在删除请稍后.....\n"); 
 				DeleteStaMem(station,code,LineNum,stationNum);//调用函数删除变量内站点信息 
 				trueInput=1;break;
 			case 'N':
@@ -750,7 +750,7 @@ void SiteDeletion(){
 			default:
 				trueInput=0;
 				color(4);
-				printf("\t\t\t\t【输入错误】\n");
+				printf("\t\t\t【输入错误】\n");
 				color(7);
 		}
 		
@@ -792,17 +792,17 @@ void DeleteStaMem(stationinfo station,int code,int LineNum,int stationNum){
 	char ch;
 	if(fin!=EOF){
 		color(2);
-		printf("\t\t\t\t删除成功");
+		printf("\t\t\t删除成功");
 		color(7);
-		printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
+		printf("\n\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
 		ch=getch();
 		menu(2);
 
 	}else{
 		color(4);
-		printf("\t\t\t\t删除失败");
+		printf("\t\t\t删除失败");
 		color(7);
-		printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
+		printf("\n\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
 		ch=getch();
 		menu(2);
 	}
@@ -874,7 +874,7 @@ int SelectSta(int i){
 			AdminLineHead();
 			nrindex=AdminPrintLine(1);
 			AdminStationTailAllNo();
-			printf("\t\t\t\t请输入第%d个的线路序号：【  】\b\b\b\b",i);
+			printf("\t\t\t请输入第%d个的线路序号：【  】\b\b\b\b",i);
 			color(9);
 			scanf("%d",&LineNum); 
 			if(nrindex<LineNum){
@@ -883,9 +883,9 @@ int SelectSta(int i){
 			color(7);
 			while(LineNum<=0 && LineNum-1>=lineSum && nrindex!=LineNum){
 				color(4);
-				printf("\t\t\t\t输入错误\n");
+				printf("\t\t\t输入错误\n");
 				color(7);
-				printf("\t\t\t\t请重新输入第%d个的线路序号：【  】\b\b\b\b",i);
+				printf("\t\t\t请重新输入第%d个的线路序号：【  】\b\b\b\b",i);
 				color(9);
 				scanf("%d",&LineNum); 
 				if(nrindex<LineNum){
@@ -902,7 +902,7 @@ int SelectSta(int i){
 			AdminStationHead(); 
 			AdminPrintStation(LineNum-1);
 			AdminStationTailNoM();
-			printf("\t\t\t\t请输入第%d个的站点序号：【  】\b\b\b\b",i);
+			printf("\t\t\t请输入第%d个的站点序号：【  】\b\b\b\b",i);
 			color(9);
 			scanf("%s",&sch); 
 			if(strcmp(sch,"q")==0){
@@ -915,9 +915,9 @@ int SelectSta(int i){
 			color(7);
 			while(stationNum<=0 && stationNum>=L[LineNum-1].stationsum){
 				color(4);
-				printf("\t\t\t\t输入错误\n");
+				printf("\t\t\t输入错误\n");
 				color(7);
-				printf("\t\t\t\t请重新第%d个的站点序号：【  】\b\b\b\b",i);
+				printf("\t\t\t请重新第%d个的站点序号：【  】\b\b\b\b",i);
 				color(9);
 				scanf("%s",sch); 
 				if(strcmp(sch,"q")==0){
@@ -1095,23 +1095,23 @@ void LineAddition(void){
 		 
 	}
 	
-	printf("\t\t\t\t添加中,请稍后...");
+	printf("\t\t\t添加中,请稍后...");
 	L[lineSum]=line;
 	if(LineAdditionWrite(&line)!=-1){
 		color(2);
-		printf("\t\t\t\t添加成功");
+		printf("\t\t\t添加成功");
 		color(7);
-		printf("\n\t\t\t\t你添加的信息如下：");
+		printf("\n\t\t\t你添加的信息如下：\n");
 		PrintLineInfo(lineSum);
-		printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
+		printf("\n\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
 		ch=getch();
 		menu(2);
 
 	}else{
 		color(4);
-		printf("\t\t\t\t添加失败");
+		printf("\t\t\t添加失败");
 		color(7);
-		printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
+		printf("\n\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
 		ch=getch();
 		menu(2);
 	}
@@ -1234,7 +1234,7 @@ void LineDeletion(void){
 	AdminLineHead();
 	nrindex=AdminPrintLine(1);
 	AdminStationTailNoM();
-	printf("\t\t\t\t请输入线路序号：【  】\b\b\b\b");
+	printf("\t\t\t请输入线路序号：【  】\b\b\b\b");
 	color(9);
 	scanf("%s",&lch); 
 	color(7);
@@ -1250,9 +1250,9 @@ void LineDeletion(void){
 	}
 	while(LineNum<=0 && LineNum-1>=lineSum && nrindex!=LineNum){
 		color(4);
-		printf("\t\t\t\t输入错误\n");
+		printf("\t\t\t输入错误\n");
 		color(7);
-		printf("\t\t\t\t请重新输入线路序号：【  】\b\b\b\b");
+		printf("\t\t\t请重新输入线路序号：【  】\b\b\b\b");
 		color(9);
 		scanf("%s",&lch); 
 		color(7);
@@ -1272,7 +1272,7 @@ void LineDeletion(void){
 		char ch;
 		while(!trueInput){
 			color(4);
-			printf("\t\t\t\t你确定要删除该线路？此操作不可逆[Y/N]【  】\b\b\b\b"); 
+			printf("\t\t\t你确定要删除该线路？此操作不可逆[Y/N]【  】\b\b\b\b"); 
 			color(9);
 			char ch=getch();
 			printf("%c",ch);
@@ -1280,7 +1280,7 @@ void LineDeletion(void){
 			switch(ch){
 				case 'Y':
 				case 'y':
-					printf("\t\t\t\t删除中，请稍后....."); 
+					printf("\n\t\t\t删除中，请稍后....."); 
 					DeleteLineMem(LineNum-1);
 					trueInput=1;break;
 				case 'N':
@@ -1288,7 +1288,7 @@ void LineDeletion(void){
 				default:
 					trueInput=0;
 					color(4);
-					printf("\t\t\t\t\n【输入错误】\n");
+					printf("\n\t\t\t【输入错误】\n");
 					color(7);
 			}	
 		}
@@ -1349,17 +1349,17 @@ void DeleteLineMem(int lnum){
 	}
 	if(fin==-1){
 		color(2);
-		printf("\t\t\t\t删除成功");
+		printf("\t\t\t删除成功");
 		color(7);
-		printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
+		printf("\n\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
 		ch=getch();
 		menu(2);
 
 	}else{
 		color(4);
-		printf("\t\t\t\t删除失败");
+		printf("\t\t\t删除失败");
 		color(7);
-		printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
+		printf("\n\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
 		ch=getch();
 		menu(2);
 	}
@@ -1435,7 +1435,7 @@ int DeleteLineWrite(int lnum){
 	
 }
 
-/*线路添加*/ 
+/*线路站点添加*/ 
 void LineStaAddition(void){
 	int trueInput=0,code=1,lindex,LineNum,stationNum,lnum,snum;
 	char sch[5],lch[5];
@@ -1447,7 +1447,7 @@ void LineStaAddition(void){
 			AdminLineHead();
 			AdminPrintLine(0);
 			AdminStationTail();
-			printf("\t\t\t\t请输入线路序号：【  】\b\b\b\b");
+			printf("\t\t\t请输入线路序号：【  】\b\b\b\b");
 			color(9);
 			scanf("%s",&lch); 
 			color(7);
@@ -1460,9 +1460,9 @@ void LineStaAddition(void){
 			}
 			while(LineNum<=0 && LineNum-1>=lineSum){
 				color(4);
-				printf("\t\t\t\t输入错误\n");
+				printf("\t\t\t输入错误\n");
 				color(7);
-				printf("\t\t\t\t请重新输入线路序号：【  】\b\b\b\b");
+				printf("\t\t\t请重新输入线路序号：【  】\b\b\b\b");
 				color(9);
 				scanf("%s",&lch); 
 				color(7);
@@ -1484,7 +1484,7 @@ void LineStaAddition(void){
 			AdminStationHead(); 
 			AdminPrintStation(LineNum-1);
 			AdminStationTail();
-			printf("\t\t\t\t请输入待插入的站点序号：【  】\b\b\b\b");
+			printf("\t\t\t请输入待插入的站点序号：【  】\b\b\b\b");
 			color(9);
 			scanf("%s",&sch); 
 			if(strcmp(sch,"q")==0){
@@ -1498,9 +1498,9 @@ void LineStaAddition(void){
 			color(7);
 			while(stationNum<=0 && stationNum>=L[LineNum-1].stationsum){
 				color(4);
-				printf("\t\t\t\t输入错误\n");
+				printf("\t\t\t输入错误\n");
 				color(7);
-				printf("\t\t\t\t请重新输入待插入的站点序号：【  】\b\b\b\b");
+				printf("\t\t\t请重新输入待插入的站点序号：【  】\b\b\b\b");
 				color(9);
 				scanf("%s",sch); 
 				if(strcmp(sch,"q")==0){
@@ -1523,11 +1523,11 @@ void LineStaAddition(void){
 		lindex=SelectAddres(&station,1,&lnum,&snum);
 		if(AdditionWrite(station.stationid,lindex)!=-1){
 			color(2);
-			printf("\t\t\t\t插入成功");
+			printf("\t\t\t插入成功");
 			color(7);
 //			printf("\n\t\t\t\t你添加的信息如下：");
 //			PrintAddStaInfo(lnum,snum);
-			printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
+			printf("\n\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
 			ch=getch();
 			menu(2);
 	

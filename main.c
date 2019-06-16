@@ -24,6 +24,13 @@ void init(){
 //	strcpy(lineInfoPath,GetInfoPath());
 //	getcwd(buffer,MAXPATH);
 //    sprintf(buffer,"\\lineinfo.ini");
+	if(access("data", 0)==-1){
+		mkdir("data");
+	}
+	if(access(lineInfoPath, 0)==-1){
+		FILE *fp=fopen(lineInfoPath,"w");
+		fclose(fp);
+	}
 	lineSum=GetIniKeyInt(lineInfoPath,"config","linesum");
 	for(i=0;i<lineSum;i++){
 		itoa(i,chNumLine,10);
@@ -267,22 +274,23 @@ void menu(int opt){
 	char ch;
 	system("cls");
 	if(opt==1){//用户模式 
-		printf("\t\t\t\t|————————————————————|\n");
-		printf("\t\t\t\t|     【 欢迎使用地铁信息查询系统 】     |\n");
-		printf("\t\t\t\t|               ");
+		printf("\n\n");
+		printf("\t\t\t\t\t|————————————————————|\n");
+		printf("\t\t\t\t\t|     【 欢迎使用地铁信息查询系统 】     |\n");
+		printf("\t\t\t\t\t|               ");
 		color(2);
 		printf("【用户模式】");
 		color(7);
 		printf("             |\n");
-		printf("\t\t\t\t|   1.路线查询                           |\n");
-		printf("\t\t\t\t|   2.站点信息查询                       |\n");
-//		printf("\t\t\t\t|   3.地图查看                           |\n");
-//		printf("\t\t\t\t|   4.票价查询                           |\n");
-		printf("\t\t\t\t|   3.票价查询                           |\n");
-		printf("\t\t\t\t|   4.线路查看                           |\n");
-		printf("\t\t\t\t|                                 q.返回 |\n");
-		printf("\t\t\t\t|————————————————————|\n");
-		printf("\t\t\t\t请输入序号【  】\b\b\b\b");
+		printf("\t\t\t\t\t|   1.路线查询                           |\n");
+		printf("\t\t\t\t\t|   2.站点信息查询                       |\n");
+//		printf("\t\t\t\t\t|   3.地图查看                           |\n");
+//		printf("\t\t\t\t\t|   4.票价查询                           |\n");
+		printf("\t\t\t\t\t|   3.票价查询                           |\n");
+		printf("\t\t\t\t\t|   4.线路查看                           |\n");
+		printf("\t\t\t\t\t|                                 q.返回 |\n");
+		printf("\t\t\t\t\t|————————————————————|\n");
+		printf("\t\t\t\t\t请输入序号【  】\b\b\b\b");
 		ch=getch();
 		printf("%c",ch);
 		switch(ch){
@@ -295,29 +303,30 @@ void menu(int opt){
 			case 'q':mylogin();break;
 			default:
 				color(4);
-				printf("\n\t\t\t\t输入错误，1秒后重试\b\b\b");
+				printf("\n\t\t\t\t\t输入错误，1秒后重试\b\b\b");
 				color(7);
 				Sleep(1000); 
 				menu(1);break;
 		}
 	}else if(opt==2){//管理员模式 
-		printf("\t\t\t\t|————————————————————|\n");
-		printf("\t\t\t\t|     【 欢迎使用地铁信息查询系统 】     |\n");
-		printf("\t\t\t\t|              ");
+		printf("\n\n");
+		printf("\t\t\t\t\t|————————————————————|\n");
+		printf("\t\t\t\t\t|     【 欢迎使用地铁信息查询系统 】     |\n");
+		printf("\t\t\t\t\t|              ");
 		color(4);
 		printf("【管理员模式】");
 		color(7);
 		printf("            |\n");
-		printf("\t\t\t\t|   1.站点添加                           |\n");
-		printf("\t\t\t\t|   2.站点删除                           |\n");
-		printf("\t\t\t\t|   3.线路添加                           |\n");
-		printf("\t\t\t\t|   4.线路删除                           |\n");
-		printf("\t\t\t\t|   5.线路站点添加                       |\n");
-		printf("\t\t\t\t|   6.线路信息修改                       |\n");
-		printf("\t\t\t\t|   7.站点信息修改                       |\n");
-		printf("\t\t\t\t|                                 q.返回 |\n");
-		printf("\t\t\t\t|————————————————————|\n");
-		printf("\t\t\t\t请输入序号【  】\b\b\b\b");
+		printf("\t\t\t\t\t|   1.站点添加                           |\n");
+		printf("\t\t\t\t\t|   2.站点删除                           |\n");
+		printf("\t\t\t\t\t|   3.线路添加                           |\n");
+		printf("\t\t\t\t\t|   4.线路删除                           |\n");
+		printf("\t\t\t\t\t|   5.线路站点添加                       |\n");
+		printf("\t\t\t\t\t|   6.线路信息修改                       |\n");
+		printf("\t\t\t\t\t|   7.站点信息修改                       |\n");
+		printf("\t\t\t\t\t|                                 q.返回 |\n");
+		printf("\t\t\t\t\t|————————————————————|\n");
+		printf("\t\t\t\t\t请输入序号【  】\b\b\b\b");
 		ch=getch();
 		printf("%c",ch);
 		switch(ch){
@@ -331,7 +340,7 @@ void menu(int opt){
 			case 'q':mylogin();break;
 			default:
 				color(4);
-				printf("\n\t\t\t\t输入错误，1秒后重试...");
+				printf("\n\t\t\t\t\t输入错误，1秒后重试...");
 				color(7);
 				Sleep(1000); 
 				menu(2);break;
@@ -345,15 +354,16 @@ void ModifyInfoMenu(int opt){//1修改线路信息，2修改站点信息
 	char ch; 
 	system("cls");
 	if(opt==1){
-		printf("\t\t\t\t|————————————————————|\n");
-		printf("\t\t\t\t|            【 管理员模式 】            |\n");
-		printf("\t\t\t\t|            【线路信息修改】            |\n");
-		printf("\t\t\t\t|   1.线路名称修改                       |\n");
-		printf("\t\t\t\t|   2.平均等待时间修改                   |\n");
-//		printf("\t\t\t\t|   3.线路颜色修改                       |\n");
-		printf("\t\t\t\t|                                 q.返回 |\n");
-		printf("\t\t\t\t|————————————————————|\n");
-		printf("\t\t\t\t请输入序号【  】\b\b\b\b");
+		printf("\n\n");
+		printf("\t\t\t\t\t|————————————————————|\n");
+		printf("\t\t\t\t\t|            【 管理员模式 】            |\n");
+		printf("\t\t\t\t\t|            【线路信息修改】            |\n");
+		printf("\t\t\t\t\t|   1.线路名称修改                       |\n");
+		printf("\t\t\t\t\t|   2.平均等待时间修改                   |\n");
+//		printf("\t\t\t\t\t|   3.线路颜色修改                       |\n");
+		printf("\t\t\t\t\t|                                 q.返回 |\n");
+		printf("\t\t\t\t\t|————————————————————|\n");
+		printf("\t\t\t\t\t请输入序号【  】\b\b\b\b");
 		ch=getch();
 		printf("%c",ch);
 		switch(ch){
@@ -363,22 +373,23 @@ void ModifyInfoMenu(int opt){//1修改线路信息，2修改站点信息
 			case 'q':menu(2);break;
 			default:
 				color(4);
-				printf("\n\t\t\t\t输入错误，1秒后重试...");
+				printf("\n\t\t\t\t\t输入错误，1秒后重试...");
 				color(7);
 				Sleep(1000); 
 				ModifyInfoMenu(1);break;
 		}
 	}else if(opt==2){
-		printf("\t\t\t\t|————————————————————|\n");
-		printf("\t\t\t\t|            【 管理员模式 】            |\n");
-		printf("\t\t\t\t|            【站点信息修改】            |\n");
-		printf("\t\t\t\t|   1.站点名称修改                       |\n");
-		printf("\t\t\t\t|   2.停始时间修改                       |\n");
-		printf("\t\t\t\t|   3.经纬度修改                         |\n");
-		printf("\t\t\t\t|   4.站点出口修改                       |\n");
-		printf("\t\t\t\t|                                 q.返回 |\n");
-		printf("\t\t\t\t|————————————————————|\n");
-		printf("\t\t\t\t请输入序号【  】\b\b\b\b");
+		printf("\n\n");
+		printf("\t\t\t\t\t|————————————————————|\n");
+		printf("\t\t\t\t\t|            【 管理员模式 】            |\n");
+		printf("\t\t\t\t\t|            【站点信息修改】            |\n");
+		printf("\t\t\t\t\t|   1.站点名称修改                       |\n");
+		printf("\t\t\t\t\t|   2.停始时间修改                       |\n");
+		printf("\t\t\t\t\t|   3.经纬度修改                         |\n");
+		printf("\t\t\t\t\t|   4.站点出口修改                       |\n");
+		printf("\t\t\t\t\t|                                 q.返回 |\n");
+		printf("\t\t\t\t\t|————————————————————|\n");
+		printf("\t\t\t\t\t请输入序号【  】\b\b\b\b");
 		ch=getch();
 		printf("%c",ch);
 		switch(ch){
@@ -390,7 +401,7 @@ void ModifyInfoMenu(int opt){//1修改线路信息，2修改站点信息
 			case 'q':menu(2);break;
 			default:
 				color(4);
-				printf("\n\t\t\t\t输入错误，1秒后重试...");
+				printf("\n\t\t\t\t\t输入错误，1秒后重试...");
 				color(7);
 				Sleep(1000); 
 				ModifyInfoMenu(2);break;
@@ -406,13 +417,13 @@ void mylogin(void){
 	char pr[20],word,ch;
 	system("cls");
 	printf("\n\n");
-	printf("\t\t\t\t|————————————————————|\n");
-	printf("\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t|     【 欢迎使用地铁信息查询系统 】     |\n");
-	printf("\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t|             制作人：谭康鸿             |\n");
-	printf("\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t|   ");
+	printf("\t\t\t\t\t|————————————————————|\n");
+	printf("\t\t\t\t\t|                                        |\n");
+	printf("\t\t\t\t\t|     【 欢迎使用地铁信息查询系统 】     |\n");
+	printf("\t\t\t\t\t|                                        |\n");
+	printf("\t\t\t\t\t|             制作人：谭康鸿             |\n");
+	printf("\t\t\t\t\t|                                        |\n");
+	printf("\t\t\t\t\t|   ");
 	color(2);
 	printf("1.用户模式");
 	color(7);
@@ -421,32 +432,33 @@ void mylogin(void){
 	printf("2.管理员模式");
 	color(7);
 	printf("   |\n");
-	printf("\t\t\t\t|                 0.退出                 |\n");
-	printf("\t\t\t\t|————————————————————|\n");
-	printf("\t\t\t\t 请选择模式：【  】\b\b\b\b");
+	printf("\t\t\t\t\t|                                        |\n");
+	printf("\t\t\t\t\t|                                 0.退出 |\n");
+	printf("\t\t\t\t\t|————————————————————|\n");
+	printf("\t\t\t\t\t 请选择模式：【  】\b\b\b\b");
 //	scanf("%1d",&input);
 	ch=getch(); 
 	printf("%c",ch);
 	if(ch=='0'){
-		printf("\n\t\t\t\t请稍后..."); 
+		printf("\n\t\t\t\t\t请稍后..."); 
 		Sleep(300); 
 		quit();
 	}else if(ch=='1'){
-		printf("\n\t\t\t\t请稍后..."); 
+		printf("\n\t\t\t\t\t请稍后..."); 
 		Sleep(300); 
 		menu(1);
 	}else if(ch=='2'){
-		printf("\n\t\t\t\t请稍后..."); 
+		printf("\n\t\t\t\t\t请稍后..."); 
 		Sleep(300); 
 		while(1){
 			system("CLS");
 			printf("\n\n");
-			printf("\t\t\t\t|————————————————————|\n");
-			printf("\t\t\t\t|                                        |\n");
-			printf("\t\t\t\t|       【 当前模式：管理员模式 】       |\n");
-			printf("\t\t\t\t|                                        |\n");
-			printf("\t\t\t\t|————————————————————|\n");
-			printf("\t\t\t\t 请输入密码：");
+			printf("\t\t\t\t\t|————————————————————|\n");
+			printf("\t\t\t\t\t|                                        |\n");
+			printf("\t\t\t\t\t|       【 当前模式：管理员模式 】       |\n");
+			printf("\t\t\t\t\t|                                        |\n");
+			printf("\t\t\t\t\t|————————————————————|\n");
+			printf("\t\t\t\t\t 请输入密码：");
 			i=0;
 			while((word=getch())!='\r') 
 			{
@@ -465,7 +477,7 @@ void mylogin(void){
 			if(strcmp(pr,ADMINPWD)==0)
 			{
 				color(2);
-				printf("\n\t\t\t\t 【密码正确!】\n");
+				printf("\n\t\t\t\t\t 【密码正确!】\n");
 				color(7);
 				Sleep(500);
 				system("CLS");
@@ -476,8 +488,8 @@ void mylogin(void){
 				if(time>=MAXKEYERR){
 //					system("CLS");
 					color(4);
-					printf("\n\t\t\t【密码错误】次数超过 %d 次",MAXKEYERR);
-					printf("\n\t\t\t2秒后返回主界面...");
+					printf("\n\t\t\t\t【密码错误】次数超过 %d 次",MAXKEYERR);
+					printf("\n\t\t\t\t2秒后返回主界面...");
 					Sleep(1000);
 					printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b1秒后返回主界面...");
 					color(7);
@@ -489,8 +501,8 @@ void mylogin(void){
 				}
 				time++;
 				color(4);
-				printf("\n\t\t\t\t 【密码有误!】\n");
-				printf("\n\t\t\t\t 还有2秒可以重新输入密码...");
+				printf("\n\t\t\t\t\t 【密码有误!】\n");
+				printf("\n\t\t\t\t\t 还有2秒可以重新输入密码...");
 				Sleep(1000);
 				printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b1秒可以重新输入密码...");
 				color(7);
@@ -502,7 +514,7 @@ void mylogin(void){
 		menu(2);
 	}else{
 		color(4);
-		printf("\n\t\t\t\t【输入错误】1秒后重试\b\b");
+		printf("\n\t\t\t\t\t【输入错误】1秒后重试\b\b");
 		color(7);
 		Sleep(1000);
 		mylogin();
@@ -512,19 +524,20 @@ void mylogin(void){
 
 void quit(void){
 	system("cls");
-	printf("\t\t\t\t|————————————————————|\n");
-	printf("\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t|                感谢使用                |\n");
-	printf("\t\t\t\t|         【 地铁信息查询系统 】         |\n");
-	printf("\t\t\t\t|   （Metro Information Query System）   |\n");
-	printf("\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t|            Made By 谭康鸿              |\n");
-	printf("\t\t\t\t|————————————————————|\n");
+	printf("\n\n");
+	printf("\t\t\t\t\t|————————————————————|\n");
+	printf("\t\t\t\t\t|                                        |\n");
+	printf("\t\t\t\t\t|                感谢使用                |\n");
+	printf("\t\t\t\t\t|         【 地铁信息查询系统 】         |\n");
+	printf("\t\t\t\t\t|   （Metro Information Query System）   |\n");
+	printf("\t\t\t\t\t|                                        |\n");
+	printf("\t\t\t\t\t|                                        |\n");
+	printf("\t\t\t\t\t|            Made By 谭康鸿              |\n");
+	printf("\t\t\t\t\t|————————————————————|\n");
 }
 
 int main(void) {
-	
+	system("mode con cols=120 lines=55");
 	MaxLine=0;
 	MaxStation=0;
 	G.arcnum=0;
