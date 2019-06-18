@@ -2,18 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
-#include <conio.h>
 #include "main.h"
 #include "utility.h"
 #include "UserFun.h"
-#include "AdminFun.h"
 extern Graph G;
 extern lineinfo L[MAXLINESUM];
 extern int  MaxLine;
 extern int MaxStation;
 ArrayNode shortestN[MaxVertexNum];
-
-/*线号线名转换*/
+/*输出&辅助函数*/
 char* TransferConversion(int num){
 	int lineSum;
 	char lineInfoPath[100]="data\\lineinfo.ini";
@@ -26,7 +23,7 @@ char* TransferConversion(int num){
 	return "";
 }
 
-/*输出全部线路*/ 
+
 void PrintLine(){
 	int lineSum,tempNo=-1;
 	char temp[500]; 
@@ -47,7 +44,7 @@ void PrintLine(){
 	
 }
 
-/*输出对应线路全部站点*/ 
+
 void PrintStation(int lNum){
 	int lineSum;
 	char temp[500]; 
@@ -68,11 +65,9 @@ void PrintStation(int lNum){
 	printf("|\n");
 }
 
-/*用户站点信息头*/ 
 void UserStationHead(void){
 	system("cls");
-	printf("\n\n");
-	printf("\t\t\t|-—————————————————————————————————————-|\n");
+	printf("\t\t\t| ————————————————————————————————————— |\n");
 	printf("\t\t\t|                               ");
 	color(2);
 	printf("【 用户模式 】");
@@ -83,11 +78,29 @@ void UserStationHead(void){
 	printf("\t\t\t|\t"); 
 } 
 
-/*用户站点信息头2*/ 
-void UserStationHead2(void){
+
+void UserStationTail(void){
+	printf("\t\t\t|                                                                            |\n");
+	printf("\t\t\t|        m.主菜单                                              q.返回        |\n");
+	printf("\t\t\t|  —————————————————————————————————————|\n");
+}
+
+void UserStationTailNoQ(void){
+	printf("\t\t\t|                                                                            |\n");
+	printf("\t\t\t|                                                              m.主菜单      |\n");
+	printf("\t\t\t|  —————————————————————————————————————|\n");
+}
+
+	
+	
+void PrintStationInfo(int lNum,int sNum){
+	int lineSum;
+	char temp[500],temp1[500],temp2[500],ch1; 
+	int i,flag;
+	char lineInfoPath[100]="data\\lineinfo.ini";
+	lineSum=GetIniKeyInt(lineInfoPath,"config","linesum");
 	system("cls");
-	printf("\n\n");
-	printf("\t\t\t|-—————————————————————————————————|\n");
+	printf("\t\t\t| —————————————————————————————————|\n");
 	printf("\t\t\t|                           ");
 	color(2);
 	printf("【 用户模式 】");
@@ -95,68 +108,9 @@ void UserStationHead2(void){
 	printf("                          |\n");
 	printf("\t\t\t|                          【站点信息查询】                         |\n");
 	printf("\t\t\t|                                                                   |\n");
-} 
-
-/*用户站点信息头3*/ 
-void UserStationHead3(void){
-	system("cls");
-	printf("\n\n");
-	printf("\t\t\t|-—————————————————————————————————————-|\n");
-	printf("\t\t\t|                               ");
-	color(2);
-	printf("【 用户模式 】");
-	color(7);
-	printf("                               |\n");
-	printf("\t\t\t|                                                                            |\n");
-	printf("\t\t\t|                               【 路线查询 】                               |\n");
-	printf("\t\t\t|                                                                            |\n");
-} 
-
-/*用户站点信息尾*/ 
-void UserStationTail(void){
-	printf("\t\t\t|                                                                            |\n");
-	printf("\t\t\t|        m.主菜单                                              q.返回        |\n");
-	printf("\t\t\t|- —————————————————————————————————————|\n");
-}
-
-/*用户站点信息尾2*/ 
-void UserStationTail2(void){
-	printf("\t\t\t|                                                                   |\n");
-	printf("\t\t\t|      m.主菜单                                         q.返回      |\n");
-	printf("\t\t\t| —————————————————————————————————|\n");
-	printf("\t\t\t请输入字母：【  】\b\b\b\b");
-}
-
-/*用户站点信息尾无返回选项*/ 
-void UserStationTailNoQ(void){
-	printf("\t\t\t|                                                                            |\n");
-	printf("\t\t\t|                                                              m.主菜单      |\n");
-	printf("\t\t\t| —————————————————————————————————————-|\n");
-}
-
-/*用户站点信息尾无选项*/ 
-void UserStationTailAllNo(void){
-	printf("\t\t\t|                                                                            |\n");
-	printf("\t\t\t|                                                                            |\n");
-	printf("\t\t\t| —————————————————————————————————————-|\n");
-}
-	
-/*输出站点信息*/	
-void PrintStationInfo(int lNum,int sNum){
-	int lineSum;
-	char temp[500],temp1[500],temp2[500],ch1; 
-	int i,flag;
-	char lineInfoPath[100]="data\\lineinfo.ini";
-	lineSum=GetIniKeyInt(lineInfoPath,"config","linesum");
-//	UserStationHead2(); 
-	if(L[lNum].station[sNum].nameen[0]=='\0'){
-		sprintf(temp,"站名：%s",L[lNum].station[sNum].namecn);
-	}else{
-		sprintf(temp,"站名：%s(%s)",L[lNum].station[sNum].namecn,L[lNum].station[sNum].nameen);
-	}
-	
+	sprintf(temp,"站名：%s(%s)",L[lNum].station[sNum].namecn,L[lNum].station[sNum].nameen);
 	printf("\t\t\t|\t\t\t%-44s|\n",temp);
-	sprintf(temp,"线号：%s(%s)",L[lNum].linecn,L[lNum].lineen);
+	sprintf(temp,"线号：%s(%s))",L[lNum].linecn,L[lNum].lineen);
 	printf("\t\t\t|\t\t\t%-44s|\n",temp);
 	sprintf(temp,"发车间隔时间：%d分钟",L[lNum].averageintervaltime/60);
 	printf("\t\t\t|\t\t\t%-44s|\n",temp);
@@ -247,16 +201,17 @@ void PrintStationInfo(int lNum,int sNum){
 		
 		
 	}
-	
+	printf("\t\t\t|                                                                   |\n");
+	printf("\t\t\t|      m.主菜单                                         q.返回      |\n");
+	printf("\t\t\t| —————————————————————————————————|\n");
+	printf("\t\t\t请输入字母：【  】\b\b\b\b");
 
 	
 }
 
-/*输出票价信息*/ 
 void PrintTicketPice(int from,int to){
 	char temp[100];
 	system("cls");
-	printf("\n\n");
 	printf("\t\t\t\t| ———————————————————————|\n");
 	printf("\t\t\t\t|                ");
 	color(2);
@@ -288,7 +243,6 @@ void PrintTicketPice(int from,int to){
 	printf("\t\t\t\t| ———————————————————————|\n");
 }
 
-/*按广州地铁规则计算票价*/ 
 int CalculateFares(double distance){
 	int dis,price=2;
 	dis=(int)(distance+0.5);//四舍五入
@@ -319,9 +273,9 @@ int CalculateFares(double distance){
 	return price;
 }
 
-/*Dijkstra最短路线算法*/ 
+
 void Dijkstra(int from,int to){
-	int i,j,index=-1,indexti=-1,indextr=-1; 
+	int i,j,index=-1; 
     int n=1;//记录已经求出的两个点之间的最短距离的个数 
     char re[400];
     int flag[MaxVertexNum]={0};//标记，为1表示到这个顶点的最短距离已求出 
@@ -330,15 +284,12 @@ void Dijkstra(int from,int to){
 		if(i==from){
 			shortestN[i].distance=0;
 			shortestN[i].path[0]=from;
-			shortestN[i].transfer=0; 
 			flag[from]=1;
 		}else if(G.arcs[from][i].weight>0){
 			shortestN[i].distance=G.arcs[from][i].weight;
 			shortestN[i].path[1]=i;
-			shortestN[i].transfer=0;
 		}else{
 			shortestN[i].distance=INFINITE;
-			shortestN[i].transfer=0;
 		}
 	}
 	//遍历每次找出一个顶点的最短路径
@@ -350,22 +301,17 @@ void Dijkstra(int from,int to){
 			}
 			if(flag[i]==0  && shortestN[i].distance!=INFINITE){
 				index=i;
-
 			}
-			
 			if(flag[i]==0  && shortestN[i].distance<shortestN[index].distance){
 				index=i;
-				
 			}
-			
-			
 		}
 		flag[index]=1;
 		//更新表 
 		for(i=0;i<=MaxStation;i++){
 			if(i==from){
 				continue;
-			} 
+			}
 			if(G.arcs[index][i].weight>0 && G.arcs[index][i].weight+shortestN[index].distance<shortestN[i].distance){
 				shortestN[i].distance=G.arcs[index][i].weight+shortestN[index].distance;
 				j=0;
@@ -378,27 +324,40 @@ void Dijkstra(int from,int to){
 				}
 				shortestN[i].path[0]=from;
 				shortestN[i].path[j+1]=i;
-			}	
-			
+			}
 		}
 		n++;
 	}
-
+//	if(shortestN[to].distance==INFINITE){
+//		printf("%s到%s没有路径\n",G.data[from].namecn,G.data[to].namecn);
+//	}
+//	printf("%s到%s的最短路径长度是：%f\n",G.data[from].namecn,G.data[to].namecn,shortestN[to].distance); 
+//    printf("经过的顶点：  "); 
+//    i=0; 
+//    while(1){ 
+//        strcat_s(re,sizeof(re),G.data[shortestN[to].path[i]].namecn);
+//        if(shortestN[to].path[i]==to){
+//        	break; 
+//		}else{
+//			strcat_s(re,sizeof(re),"---》"); 
+//		}
+//        i++; 
+//    } 
+//    printf("\n"); 
 }
 
-/*路线查询*/ 
+
 void RouteQuery(void){
-	int lineSum,lNum=0,sNum=0,rnindex=99;
+	int lineSum,lNum=0,sNum=0;
 	int from=0,to=0,flag=1,i=0;
 	char lineInfoPath[100]="data\\lineinfo.ini";
 	char name[10]="始发站",re[500];
-	char temp[200];
 	lineSum=GetIniKeyInt(lineInfoPath,"config","linesum");
 	while(1){
 		if(flag==1 || flag==3){
 			char ch[5];
 			UserStationHead();
-			rnindex=AdminPrintLine(1);
+			PrintLine();
 			UserStationTailNoQ();
 			printf("\t\t\t请输入选择");
 			color(2);
@@ -416,9 +375,6 @@ void RouteQuery(void){
 				Sleep(1000); 
 			}else{
 				lNum=atoi(ch)-1;
-				if(lNum>=rnindex){
-					lNum++; 
-				} 
 				flag++;
 			}
 			
@@ -462,64 +418,36 @@ void RouteQuery(void){
 			char ch;
 			if(flag==5 && from>0 && from<=MaxStation && to>0 &&to<=MaxStation){
 				Dijkstra(from,to);
-				UserStationHead3(); 
+				
 				if(shortestN[to].distance==INFINITE){
-					sprintf(temp,"起点：%s",G.data[from].namecn);
-					printf("\t\t\t|\t\t\t%-53s|\n",temp);
-					sprintf(temp,"终点：%s",G.data[to].namecn);
-					printf("\t\t\t|\t\t\t%-53s|\n",temp);
-					sprintf(temp,"没有最短路线");
-					printf("\t\t\t|\t\t\t%-53s|\n",temp);
+					printf("%s到%s没有路径\n",G.data[from].namecn,G.data[to].namecn);
 				}else{
-					sprintf(temp,"起点：%s",G.data[from].namecn);
-					printf("\t\t\t|\t\t\t%-53s|\n",temp);
-					sprintf(temp,"终点：%s",G.data[to].namecn);
-					printf("\t\t\t|\t\t\t%-53s|\n",temp);
-					sprintf(temp,"最短距离：%lf公里",shortestN[to].distance);
-					printf("\t\t\t|\t\t\t%-53s|\n",temp);
-					sprintf(temp,"票价：%d元",CalculateFares(shortestN[to].distance));
-					printf("\t\t\t|\t\t\t%-53s|\n",temp);
-					if(shortestN[to].path[0]!=to){
-						
-						printf("\t\t\t|                                                                            |\n");
-						printf("\t\t\t|                               ");
-						color(2);
-						printf("【 路线信息 】");
-						color(7);
-						printf("                               |\n");
-						printf("\t\t\t|                                                                            |\n");
-					    shortestN[to].path[0]=from;
-						while(1){ 
-	//				        strcat_s(re,sizeof(re),G.data[shortestN[to].path[i]].namecn);
-	//				        if(shortestN[to].path[i]==to){
-	//				        	break; 
-	//						}else{
-	//							strcat_s(re,sizeof(re),"---》"); 
-	//							
-	//						}
-							if(strlen(re)+strlen(G.data[shortestN[to].path[i]].namecn)+strlen("---》")>72){
-								printf("\t\t\t|  %-74s|\n",re);
-								re[0]='\0';
-							}
-							if(i==0){
-								strcat_s(re,sizeof(re),G.data[shortestN[to].path[i]].namecn);
-							}else{
-								strcat(re," >>> ");
-								strcat_s(re,sizeof(re),G.data[shortestN[to].path[i]].namecn);
-							}
-							if(shortestN[to].path[i]==to){
-					        	break; 
-							} 
-					        i++; 
-					    }
-					}
-					
+				
+					printf("%s到%s的最短路径长度是：%f\n票价为：%d",G.data[from].namecn,G.data[to].namecn,shortestN[to].distance,CalculateFares(shortestN[to].distance)); 
+				    printf("经过的顶点：  "); 
+				    shortestN[to].path[0]=from;
+					while(1){ 
+				        strcat_s(re,sizeof(re),G.data[shortestN[to].path[i]].namecn);
+				        if(shortestN[to].path[i]==to){
+				        	break; 
+						}else{
+							strcat_s(re,sizeof(re),"---》"); 
+						}
+				        i++; 
+				    }
+					printf("%s",re);
 			    }
-			    UserStationTailAllNo();
 				printf("\n"); 
-				printf("\t\t\t按任意键返回【  】\b\b\b\b");
-				getch();
-				menu(1);break;
+				printf("\t\t\t按q键返回【  】\b\b\b\b");
+				ch=getch();
+				if(ch=='m'){
+					menu(1);break;
+				}else if(ch=='q'){
+					break;
+				}
+				
+				
+				
 				
 			}
 			ch=getch();
@@ -542,16 +470,16 @@ void RouteQuery(void){
 	RouteQuery(); 
 }
 
-/*站点信息查询*/ 
+
 void QuerySiteInformation(int flag){
-	int lineSum,lNum=0,sNum=0,rnindex=99;
+	int lineSum,lNum=0,sNum=0;
 	char lineInfoPath[100]="data\\lineinfo.ini";
 	lineSum=GetIniKeyInt(lineInfoPath,"config","linesum");
 	while(1){
 		if(flag==1){
 			char ch[5];
 			UserStationHead();
-			rnindex=AdminPrintLine(1);
+			PrintLine();
 			UserStationTailNoQ();
 			printf("\t\t\t请输入要查询的线路序号【  】\b\b\b\b");
 			ch[0]='\0';
@@ -566,9 +494,6 @@ void QuerySiteInformation(int flag){
 				PrintLine();
 			}else{
 				lNum=atoi(ch)-1;
-				if(lNum>=rnindex){
-					lNum++; 
-				} 
 				flag=2;
 			}
 			
@@ -600,9 +525,7 @@ void QuerySiteInformation(int flag){
 			
 		}else if(flag==3){
 			char ch;
-			UserStationHead2(); 
 			PrintStationInfo(lNum,sNum);
-			UserStationTail2();
 			ch=getch();
 			printf("%c",ch);
 			switch(ch){
@@ -624,15 +547,14 @@ void QuerySiteInformation(int flag){
 	
 }
 
-/*查看地铁*/ 
+
 void ViewMap(void){
 	
 }
 
-/*查询票价*/ 
 void QueryTicketPrice(void){
 	int lineSum,lNum=0,sNum=0;
-	int from=0,to=0,flag=1,i=0,rnindex=99;
+	int from=0,to=0,flag=1,i=0;
 	char lineInfoPath[100]="data\\lineinfo.ini";
 	char name[10]="始发站",re[500];
 	lineSum=GetIniKeyInt(lineInfoPath,"config","linesum");
@@ -640,7 +562,7 @@ void QueryTicketPrice(void){
 		if(flag==1 || flag==3){
 			char ch[5];
 			UserStationHead();
-			rnindex=AdminPrintLine(1);
+			PrintLine();
 			UserStationTailNoQ();
 			printf("\t\t\t请输入选择");
 			color(2);
@@ -651,16 +573,13 @@ void QueryTicketPrice(void){
 			scanf("%s",&ch);
 			if(ch[0]=='m'){
 				menu(1);break;
-			}else if(atoi(ch)<=0 || atoi(ch)>lineSum-1){
+			}else if(atoi(ch)<=0 || atoi(ch)>lineSum){
 				color(4);
 				printf("\n\t\t\t输入错误，1秒后重试...");
 				color(7);
 				Sleep(1000); 
 			}else{
 				lNum=atoi(ch)-1;
-				if(lNum>=rnindex){
-					lNum++; 
-				} 
 				flag++;
 			}
 			
@@ -739,112 +658,6 @@ void QueryTicketPrice(void){
 	QueryTicketPrice(); 
 }
 
-/*输出线路信息*/ 
-void PrintLineInfo(int lNum){
-	char temp[300];
-	printf("\n\n");
-	printf("\t\t\t|-—————————————————————————————————————-|\n");
-	printf("\t\t\t|                               ");
-	color(2);
-	printf("【 用户模式 】");
-	color(7);
-	printf("                               |\n");
-	printf("\t\t\t|                              【线路信息查询】                              |\n");
-	printf("\t\t\t|                                                                            |\n");
-	sprintf(temp,"线名：%s(%s)",L[lNum].linecn,L[lNum].lineen);
-	printf("\t\t\t|\t\t\t%-53s|\n",temp);
-	sprintf(temp,"线号：%d",L[lNum].lineno);
-	printf("\t\t\t|\t\t\t%-53s|\n",temp);
-	Times modifytime=stamp_to_standard(L[lNum].lastmodifytime);
-	sprintf(temp,"开通时间：%d年%d月%d日",modifytime.Year,modifytime.Mon,modifytime.Day);
-	printf("\t\t\t|\t\t\t%-53s|\n",temp);
-	sprintf(temp,"始发站：%s",L[lNum].start);
-	printf("\t\t\t|\t\t\t%-53s|\n",temp);
-	sprintf(temp,"终点站：%s",L[lNum].end);
-	printf("\t\t\t|\t\t\t%-53s|\n",temp);
-	sprintf(temp,"发车间隔时长：%d分钟",L[lNum].averageintervaltime/60);
-	printf("\t\t\t|\t\t\t%-53s|\n",temp);
-	sprintf(temp,"站点数量：%d",L[lNum].stationsum);
-	printf("\t\t\t|\t\t\t%-53s|\n",temp);
-	printf("\t\t\t|                                                                            |\n");
-	
-	if(L[lNum].stationsum>0){
-		printf("\t\t\t|                               ");
-		color(2);
-		printf("【 站点信息 】");
-		color(7);
-		printf("                               |\n");
-		printf("\t\t\t|                                                                            |\n");
-		temp[0]='\0';
-		for(int i=0;i<L[lNum].stationsum;i++){
-			if(strlen(temp)+strlen(L[lNum].station[i].namecn)+strlen(" >>> ")>72){
-				printf("\t\t\t|  %-74s|\n",temp);
-				temp[0]='\0';
-			}
-			if(i==0){
-				strcat(temp,L[lNum].station[i].namecn);
-			}else{
-				strcat(temp," >>> ");
-				strcat(temp,L[lNum].station[i].namecn);
-			}
-			
-		}
-		printf("\t\t\t|  %-74s|\n",temp);
-	} 
-	
-	printf("\t\t\t|                                                                            |\n");
-	printf("\t\t\t|                                                                            |\n");
-	printf("\t\t\t| —————————————————————————————————————-|\n");
-}
 
-/*查询线路*/ 
-void QueryLine(void){
-	char ch[5],temp[200];
-	char lineInfoPath[100]="data\\lineinfo.ini";
-	int lineSum,lNum,flag=0,rnindex=99;
-	lineSum=GetIniKeyInt(lineInfoPath,"config","linesum");
-	while(1){
-		flag=0;
-		system("cls");
-		printf("\n\n");
-		printf("\t\t\t|-—————————————————————————————————————-|\n");
-		printf("\t\t\t|                               ");
-		color(2);
-		printf("【 用户模式 】");
-		color(7);
-		printf("                               |\n");
-		printf("\t\t\t|                              【线路信息查询】                              |\n");
-		printf("\t\t\t|                                                                            |\n");
-		printf("\t\t\t|\t"); 
-		rnindex=AdminPrintLine(1);
-		UserStationTailNoQ();
-		printf("\t\t\t请输入线路要查询的线路序号:【  】\b\b\b\b");
-		ch[0]='\0';
-		scanf("%s",&ch);
-		if(ch[0]=='m'){
-			menu(1);break;
-		}else if(atoi(ch)<=0 || atoi(ch)>lineSum-1){
-			color(4);
-			printf("\n\t\t\t输入错误，1秒后重试...");
-			color(7);
-			Sleep(1000); 
-			flag=0;
-		}else{
-			lNum=atoi(ch)-1;
-			if(lNum>=rnindex){
-				lNum++;
-			}
-			flag=1;
-		}
-		if(flag==1){
-			system("cls");
-			PrintLineInfo(lNum);
-			printf("\t\t\t按任意键返回【  】\b\b\b\b");
-			getch();
-		}
-	}
-	
-	
-	
-}
+
 
