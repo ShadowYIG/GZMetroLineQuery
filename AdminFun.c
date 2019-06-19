@@ -25,6 +25,7 @@ int AdminPrintLine(int flag){
 			re=i; 
 			continue; 
 		}
+		temp[0]='\0';
 		sprintf(temp,"%d.%s",num,L[i].linecn);
 			printf("%-23s",temp);
 		if((num)%3==0){
@@ -282,7 +283,7 @@ void SiteAddition(void){
 				for(int i=0;i<station.exitsum;i++){
 					printf("\t\t\t\t请输入第%d个出口名称(例：A出口)：",i+1);
 					color(9);
-					scanf("%s",&station.exitdata[i]);
+					scanf("%s",&station.exitdata[i].exitname);
 					color(7);
 					printf("\t\t\t\t请输入该出口地点数量：");
 					color(9);
@@ -291,6 +292,7 @@ void SiteAddition(void){
 					for(int j=0;j<station.exitdata[i].adnum;j++){
 						printf("\t\t\t\t请输入第%d个地点(例：广州商学院)：",j+1);
 						color(9);
+						station.exitdata[i].exitad[j][0]='\0';
 						scanf("%s",&station.exitdata[i].exitad[j]);
 						color(7);
 					}
@@ -524,6 +526,7 @@ int SelectAddres(stationinfo *station,int code,int *lnum,int *snum){
 					for(int i=0;i<MAXTRANNUM;i++){//更新换乘数据 
 						if(station->transfer[i]==0){
 							station->transfer[i]=L[LineNum-1].number;
+							break; 
 						}
 					}
 					
@@ -738,6 +741,7 @@ void SiteDeletion(){
 		printf("\t\t\t你确定要删除该站点？此操作不可逆[Y/N]【  】\b\b\b\b"); 
 		color(9);
 		char ch=getch();
+		printf("%c",ch);
 		color(7);
 		switch(ch){
 			case 'Y':
