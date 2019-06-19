@@ -117,6 +117,7 @@ void LineNameModi(void){
 	int lindex=-1,trueInput=0,enname=0;
 	char title[5],key[50],value[100],linename[30];
 	char lineInfoPath[100]="data\\lineinfo.ini";
+	char ch;
 	lindex=LineModi();
 	if(lindex==-1){
 		color(4);
@@ -127,15 +128,16 @@ void LineNameModi(void){
 	}
 	color(7);printf("\t\t\t\t请输入该线路中文名称：");
 	color(9);scanf("%s",&linename); 
-	color(7);printf("\t\t\t\t你确定要将");
-	color(6);printf("【%s】",L[lindex].linecn);
-	color(7);printf("更改为");
-	color(2);printf("【%s】",linename);
-	color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
-	color(9);char ch=getch();
-	printf("%c",ch); 
 	trueInput=0;
 	while(!trueInput){
+		color(7);printf("\t\t\t\t你确定要将");
+		color(6);printf("【%s】",L[lindex].linecn);
+		color(7);printf("更改为");
+		color(2);printf("【%s】",linename);
+		color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
+		color(9);char ch=getch();
+		printf("%c",ch); 
+		color(7);
 		switch(ch){
 			case 'y':
 			case 'Y':
@@ -160,13 +162,16 @@ void LineNameModi(void){
 			
 		}	
 	}
-	color(7);printf("\n\t\t\t\t请问你需要修改该线路英文名称吗？[y/n]【  】\b\b\b\b");
+	
 	trueInput=0;
 	while(!trueInput){
+		color(7);printf("\n\t\t\t\t请问你需要修改该线路英文名称吗？[y/n]【  】\b\b\b\b");
+		color(9);ch=getch();
+		printf("%c",ch); 
 		switch(ch){
 			case 'y':
 			case 'Y':
-				enname=1;break;
+				trueInput=1;enname=1;break;
 			case 'n':
 			case 'N':	
 				trueInput=1;enname=0;break;
@@ -180,17 +185,18 @@ void LineNameModi(void){
 		}	
 	}
 	if(enname==1){
-		color(7);printf("\t\t\t\t请输入该线路英文名称：");
+		color(7);printf("\n\t\t\t\t请输入该线路英文名称：");
 		color(9);scanf("%s",&linename); 
-		color(7);printf("\t\t\t\t你确定要将");
-		color(6);printf("【%s】",L[lindex].lineen);
-		color(7);printf("更改为");
-		color(2);printf("【%s】",linename);
-		color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
-		color(9);char ch=getch();
-		printf("%c",ch); 
 		trueInput=0;
 		while(!trueInput){
+			color(7);printf("\t\t\t\t你确定要将");
+			color(6);printf("【%s】",L[lindex].lineen);
+			color(7);printf("更改为");
+			color(2);printf("【%s】",linename);
+			color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
+			color(9);char ch=getch();
+			printf("%c",ch); 
+			color(7);
 			switch(ch){
 				case 'y':
 				case 'Y':
@@ -231,7 +237,7 @@ void LineNameModi(void){
 /*线路平均发车时间修改*/
 void AverageTimeModi(void){
 	int lindex=-1,trueInput=0,averagetime=0;
-	char title[10];
+	char title[10],ch='\0';
 	char lineInfoPath[100]="data\\lineinfo.ini";
 	lindex=LineModi();
 	if(lindex==-1){
@@ -241,17 +247,18 @@ void AverageTimeModi(void){
 		ModifyInfoMenu(1);
 		return;
 	}
-	color(7);printf("\t\t\t\t请输入该线路平均等待时间：  分钟\b\b\b\b\b");
+	color(7);printf("\t\t\t\t请输入该线路平均等待时间：  分钟\b\b\b\b\b\b");
 	color(9);scanf("%d",&averagetime); 
-	color(7);printf("\t\t\t\t你确定要将");
-	color(6);printf("【%d分钟】",L[lindex].averageintervaltime);
-	color(7);printf("更改为");
-	color(2);printf("【%d分钟】",averagetime);
-	color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
-	color(9);char ch=getch();
-	printf("%c",ch); 
 	trueInput=0;
 	while(!trueInput){
+		color(7);printf("\t\t\t\t你确定要将");
+		color(6);printf("【%d分钟】",L[lindex].averageintervaltime/60);
+		color(7);printf("更改为");
+		color(2);printf("【%d分钟】",averagetime);
+		color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
+		color(9);char ch=getch();
+		printf("%c",ch); 
+		color(7);
 		switch(ch){
 			case 'y':
 			case 'Y':
@@ -387,7 +394,7 @@ void StationModi(int *lindex,int *sindex){
 void SiteNameModi(void){
 	int lindex=-1,sindex=-1,enname=0,trueInput=0;
 	char stationname[50],title[50];
-	char linePath[100];
+	char linePath[100],ch='\0';
 	StationModi(&lindex,&sindex);
 	if(lindex==-1 && sindex==-1){
 		color(4);
@@ -397,15 +404,23 @@ void SiteNameModi(void){
 	}
 	color(7);printf("\t\t\t\t请输入该线路中文名称：");
 	color(9);scanf("%s",&stationname); 
-	color(7);printf("\t\t\t\t你确定要将");
-	color(6);printf("【%s】",L[lindex].station[sindex].namecn);
-	color(7);printf("更改为");
-	color(2);printf("【%s】",stationname);
-	color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
-	color(9);char ch=getch();
-	printf("%c",ch); 
+//	color(7);printf("\t\t\t\t你确定要将");
+//	color(6);printf("【%s】",L[lindex].station[sindex].namecn);
+//	color(7);printf("更改为");
+//	color(2);printf("【%s】",stationname);
+//	color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
+//	color(9);char ch=getch();
+//	printf("%c",ch); 
 	trueInput=0;
 	while(!trueInput){
+		color(7);printf("\t\t\t\t你确定要将");
+		color(6);printf("【%s】",L[lindex].station[sindex].namecn);
+		color(7);printf("更改为");
+		color(2);printf("【%s】",stationname);
+		color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
+		color(9);char ch=getch();
+		printf("%c",ch); 
+		color(7);
 		switch(ch){
 			case 'y':
 			case 'Y':
@@ -433,13 +448,17 @@ void SiteNameModi(void){
 			
 		}	
 	}
-	color(7);printf("\n\t\t\t\t请问你需要修改该站点英文名称吗？[y/n]【  】\b\b\b\b");
+	
 	trueInput=0;
 	while(!trueInput){
+		color(7);printf("\n\t\t\t\t请问你需要修改该站点英文名称吗？[y/n]【  】\b\b\b\b");
+		color(9);ch=getch();
+		printf("%c",ch); 
+		color(7);
 		switch(ch){
 			case 'y':
 			case 'Y':
-				enname=1;break;
+				trueInput=1;enname=1;break;
 			case 'n':
 			case 'N':	
 				trueInput=1;enname=0;break;
@@ -453,17 +472,18 @@ void SiteNameModi(void){
 		}	
 	}
 	if(enname==1){
-		color(7);printf("\t\t\t\t请输入该站点英文名称：");
+		color(7);printf("\n\t\t\t\t请输入该站点英文名称：");
 		color(9);scanf("%s",&stationname); 
-		color(7);printf("\t\t\t\t你确定要将");
-		color(6);printf("【%s】",L[lindex].station[sindex].nameen);
-		color(7);printf("更改为");
-		color(2);printf("【%s】",stationname);
-		color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
-		color(9);char ch=getch();
-		printf("%c",ch); 
 		trueInput=0;
 		while(!trueInput){
+			color(7);printf("\t\t\t\t你确定要将");
+			color(6);printf("【%s】",L[lindex].station[sindex].nameen);
+			color(7);printf("更改为");
+			color(2);printf("【%s】",stationname);
+			color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
+			color(9);char ch=getch();
+			printf("%c",ch); 
+			color(7);
 			switch(ch){
 				case 'y':
 				case 'Y':
@@ -513,19 +533,19 @@ void StoStaTimeModi(void){
 	color(9);scanf("%s",&time1); 
 	color(7);printf("\t\t\t\t请输入该站点上行终点时间：");
 	color(9);scanf("%s",&time2); 
-	color(7);printf("\t\t\t\t你确定要将\n\t\t\t\t上行始发时间");
-	color(6);printf("【%s】",L[lindex].station[sindex].startonetime);
-	color(7);printf("更改为");
-	color(2);printf("【%s】",time1);
-	color(7);printf("\n\t\t\t\t上行终点时间");
-	color(6);printf("【%s】",L[lindex].station[sindex].endonetime);
-	color(7);printf("更改为");
-	color(2);printf("【%s】",time2);
-	color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
-	color(9);char ch=getch();
-	printf("%c",ch); 
 	trueInput=0;
 	while(!trueInput){
+		color(7);printf("\t\t\t\t你确定要将\n\t\t\t\t上行始发时间");
+		color(6);printf("【%s】",L[lindex].station[sindex].startonetime);
+		color(7);printf("更改为");
+		color(2);printf("【%s】",time1);
+		color(7);printf("\n\t\t\t\t上行终点时间");
+		color(6);printf("【%s】",L[lindex].station[sindex].endonetime);
+		color(7);printf("更改为");
+		color(2);printf("【%s】",time2);
+		color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
+		color(9);char ch=getch();
+		printf("%c",ch); 
 		switch(ch){
 			case 'y':
 			case 'Y':
@@ -555,23 +575,23 @@ void StoStaTimeModi(void){
 			
 		}	
 	}
-	color(7);printf("\t\t\t\t请输入该站点下行始发时间：");
+	color(7);printf("\n\t\t\t\t请输入该站点下行始发时间：");
 	color(9);scanf("%s",&time1); 
 	color(7);printf("\t\t\t\t请输入该站点下行终点时间：");
 	color(9);scanf("%s",&time2); 
-	color(7);printf("\t\t\t\t你确定要将\n\t\t\t\t下行始发时间");
-	color(6);printf("【%s】",L[lindex].station[sindex].starttwotime);
-	color(7);printf("更改为");
-	color(2);printf("【%s】",time1);
-	color(7);printf("\n\t\t\t\t下行终点时间");
-	color(6);printf("【%s】",L[lindex].station[sindex].endtwotime);
-	color(7);printf("更改为");
-	color(2);printf("【%s】",time2);
-	color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
-	color(9);ch=getch();
-	printf("%c",ch); 
 	trueInput=0;
 	while(!trueInput){
+		color(7);printf("\t\t\t\t你确定要将\n\t\t\t\t下行始发时间");
+		color(6);printf("【%s】",L[lindex].station[sindex].starttwotime);
+		color(7);printf("更改为");
+		color(2);printf("【%s】",time1);
+		color(7);printf("\n\t\t\t\t下行终点时间");
+		color(6);printf("【%s】",L[lindex].station[sindex].endtwotime);
+		color(7);printf("更改为");
+		color(2);printf("【%s】",time2);
+		color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
+		color(9);char ch=getch();
+		printf("%c",ch); 
 		switch(ch){
 			case 'y':
 			case 'Y':
@@ -602,7 +622,7 @@ void StoStaTimeModi(void){
 		}	
 	}
 	color(7);printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
-	ch=getch();
+	char ch=getch();
 	ModifyInfoMenu(2);
 }
 
@@ -623,15 +643,15 @@ void LaLoModi(void){
 	color(9);scanf("%lf",&lo); 
 	color(7);printf("\t\t\t\t请输入该站点纬度(如：23.119293)：");
 	color(9);scanf("%lf",&la); 
-	color(7);printf("\t\t\t\t你确定要将");
-	color(6);printf("【经度：%.6lf  纬度：%.6lf】",L[lindex].station[sindex].longitude,L[lindex].station[sindex].latitude);
-	color(7);printf("\n\t\t\t\t更改为");
-	color(2);printf("【经度：%.6lf  纬度：%.6lf】",lo,la);
-	color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
-	color(9);char ch=getch();
-	printf("%c",ch); 
 	trueInput=0;
 	while(!trueInput){
+		color(7);printf("\t\t\t\t你确定要将");
+		color(6);printf("【经度：%.6lf  纬度：%.6lf】",L[lindex].station[sindex].longitude,L[lindex].station[sindex].latitude);
+		color(7);printf("\n\t\t\t\t更改为");
+		color(2);printf("【经度：%.6lf  纬度：%.6lf】",lo,la);
+		color(7);printf("吗？[y/n]【  】\b\b\b\b"); 
+		color(9);char ch=getch();
+		printf("%c",ch); 
 		switch(ch){
 			case 'y':
 			case 'Y':
@@ -664,7 +684,7 @@ void LaLoModi(void){
 		}	
 	}
 	color(7);printf("\n\t\t\t\t输入任意字符返回主菜单：【  】\b\b\b\b");
-	ch=getch();
+	char ch=getch();
 	ModifyInfoMenu(2);
 }
 
