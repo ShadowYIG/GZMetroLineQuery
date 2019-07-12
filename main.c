@@ -14,7 +14,7 @@ lineinfo L[MAXLINESUM];
 int MaxLine;
 int MaxStation;
 
-/*³õÊ¼»¯*/
+/*åˆå§‹åŒ–*/
 void init(){
 	
 	int i=0,j=0,k=0,r=0,lineNum,stationNum,lineSum,temp,prior,next;
@@ -36,7 +36,7 @@ void init(){
 		itoa(i,chNumLine,10);
 		lineinfo *lInfo;
 		lInfo=(lineinfo*)malloc(sizeof(lineinfo));
-		/*³õÊ¼»¯lInfo¿ªÊ¼*/
+		/*åˆå§‹åŒ–lInfoå¼€å§‹*/
 		lInfo->averageintervaltime=0; 
 		lInfo->lastmodifytime=0;
 		lInfo->lineno=0;
@@ -48,18 +48,18 @@ void init(){
 		lInfo->linecn[0]='\0';
 		lInfo->lineen[0]='\0';
 		lInfo->start[0]='\0';
-		/*³õÊ¼»¯lInfo½áÊø*/ 
+		/*åˆå§‹åŒ–lInfoç»“æŸ*/ 
 		
-		BuildPath(GetIniKeyInt(lineInfoPath,chNumLine,"number"),linePath);//¶ÔÓ¦ÏßÂ·µÄÎÄ¼şÂ·¾¶»ñÈ¡ 
-		stationNum=GetIniKeyInt(linePath,"config","stationsum");//¶ÔÓ¦ÏßÂ·Õ¾µãÊıÁ¿ 
+		BuildPath(GetIniKeyInt(lineInfoPath,chNumLine,"number"),linePath);//å¯¹åº”çº¿è·¯çš„æ–‡ä»¶è·¯å¾„è·å– 
+		stationNum=GetIniKeyInt(linePath,"config","stationsum");//å¯¹åº”çº¿è·¯ç«™ç‚¹æ•°é‡ 
 		 
 //		printf("%d  ",GetIniKeyInt(lineInfoPath,chNumLine,"number"));
-		/*ÏßÂ·ĞÅÏ¢»ñÈ¡*/
+		/*çº¿è·¯ä¿¡æ¯è·å–*/
 		lInfo->averageintervaltime=GetIniKeyInt(lineInfoPath,chNumLine,"averageintervaltime");
 		lInfo->lastmodifytime=GetIniKeyInt(lineInfoPath,chNumLine,"lastmodifytime");
 		lInfo->lineno=GetIniKeyInt(lineInfoPath,chNumLine,"lineno");
 		lInfo->number=GetIniKeyInt(lineInfoPath,chNumLine,"number");
-		if(lInfo->number>MaxLine && lInfo->number!=9999){//ÊµÊ±¸üĞÂ×î´óÏßid£¬·½±ãÌí¼ÓµØµã 
+		if(lInfo->number>MaxLine && lInfo->number!=9999){//å®æ—¶æ›´æ–°æœ€å¤§çº¿idï¼Œæ–¹ä¾¿æ·»åŠ åœ°ç‚¹ 
 			MaxLine=lInfo->number;
 		}
 		lInfo->stationsum=GetIniKeyInt(linePath,"config","stationsum");
@@ -69,13 +69,13 @@ void init(){
 		strcpy(lInfo->lineen,GetIniKeyString(lineInfoPath,chNumLine,"lineen"));
 		strcpy(lInfo->start,GetIniKeyString(linePath,"config","startone"));
 		strcpy(lInfo->end,GetIniKeyString(linePath,"config","starttow"));
-		/*Õ¾µãĞÅÏ¢»ñÈ¡*/
-		for(j=0;j<stationNum;j++){//Õ¾µãĞÅÏ¢ 
+		/*ç«™ç‚¹ä¿¡æ¯è·å–*/
+		for(j=0;j<stationNum;j++){//ç«™ç‚¹ä¿¡æ¯ 
 			stationinfo *sInfo;
 			exitinfo *eInfo;
 			sInfo=(stationinfo*)malloc(sizeof(stationinfo));
 			eInfo=(exitinfo*)malloc(sizeof(exitinfo));
-			/*³õÊ¼»¯sInfo¿ªÊ¼*/
+			/*åˆå§‹åŒ–sInfoå¼€å§‹*/
 			sInfo->exitsum=0;
 			sInfo->lineno=0;
 			sInfo->latitude=0; 
@@ -94,13 +94,13 @@ void init(){
 			sInfo->nameen[0]='\0';
 			sInfo->startonetime[0]='\0';
 			sInfo->starttwotime[0]='\0';
-			for(k=0;k<MAXEXITNUM;k++){//Éè¶¨³ö¿ÚÊıÁ¿×î´óÎª20£¬³¬¹ıĞèÒªĞŞ¸ÄÕâÀï 
+			for(k=0;k<MAXEXITNUM;k++){//è®¾å®šå‡ºå£æ•°é‡æœ€å¤§ä¸º20ï¼Œè¶…è¿‡éœ€è¦ä¿®æ”¹è¿™é‡Œ 
 				sInfo->exitdata[k].exitname[0]='\0';
 				for(int r=0;r<MAXEXITNUM;r++){
 					sInfo->exitdata[k].exitad[r][0]='\0';
 				}	
 			}
-			/*³õÊ¼»¯sInfo½áÊø*/
+			/*åˆå§‹åŒ–sInfoç»“æŸ*/
 
 			itoa(j,chNumStation,10);			
 			strcpy(sInfo->endonetime,GetIniKeyString(linePath,chNumStation,"endone"));
@@ -118,7 +118,7 @@ void init(){
 			sInfo->stageseq=GetIniKeyInt(linePath,chNumStation,"stageseq");			
 			sInfo->x=GetIniKeyInt(linePath,chNumStation,"x");
 			sInfo->y=GetIniKeyInt(linePath,chNumStation,"y");
-			if(sInfo->stationid>MaxStation){//ÊµÊ±¸üĞÂ×î´óÕ¾id£¬·½±ãÌí¼ÓµØµã 
+			if(sInfo->stationid>MaxStation){//å®æ—¶æ›´æ–°æœ€å¤§ç«™idï¼Œæ–¹ä¾¿æ·»åŠ åœ°ç‚¹ 
 				MaxStation=sInfo->stationid;
 			}
 //			printf("%d.%s   ",sInfo->stationid,sInfo->namecn);
@@ -126,12 +126,12 @@ void init(){
 //				printf("\n");
 //			}
 			
-			/*Õ¾µã³ö¿ÚĞÅÏ¢»ñÈ¡*/ 
+			/*ç«™ç‚¹å‡ºå£ä¿¡æ¯è·å–*/ 
 			strcpy(str1,GetIniKeyString(linePath,chNumStation,"exitname"));
 			strcat(str1,"|");
 			pname=strtok_s(str1, "|",&temp_p);
 			k=0;
-			while(pname){//´Ë´¦Î´×÷Õ¾µã×î´óÊıÅĞ¶Ï£¬ºóĞøÓĞÊ±¼äÔö¼Ó 
+			while(pname){//æ­¤å¤„æœªä½œç«™ç‚¹æœ€å¤§æ•°åˆ¤æ–­ï¼Œåç»­æœ‰æ—¶é—´å¢åŠ  
 				k++;
 				itoa(k,chNumExit,10);
 				strcpy(sInfo->exitdata[k-1].exitname,pname);
@@ -147,14 +147,14 @@ void init(){
 					pad=strtok_s(NULL, "|",&temp_e);
 				}
 			}
-			/*Õ¾µã³ö¿ÚĞÅÏ¢»ñÈ¡end*/ 
+			/*ç«™ç‚¹å‡ºå£ä¿¡æ¯è·å–end*/ 
 			
-			/*Õ¾µã»»³ËĞÅÏ¢»ñÈ¡*/ 
+			/*ç«™ç‚¹æ¢ä¹˜ä¿¡æ¯è·å–*/ 
 			
 			strcpy(str1,GetIniKeyString(linePath,chNumStation,"transfer"));
 			pname=strtok(str1, "|");
 			k=0;
-			while(pname){//´Ë´¦Î´×÷Õ¾µã×î´óÊıÅĞ¶Ï£¬ºóĞøÓĞÊ±¼äÔö¼Ó 	
+			while(pname){//æ­¤å¤„æœªä½œç«™ç‚¹æœ€å¤§æ•°åˆ¤æ–­ï¼Œåç»­æœ‰æ—¶é—´å¢åŠ  	
 				if(atoi(pname)!=0 && atoi(pname)!=lInfo->number && k<MAXTRANNUM){
 					sInfo->transfer[k]=atoi(pname);
 					k++;
@@ -162,30 +162,30 @@ void init(){
 				pname=strtok(NULL, "|");
 			}
 			
-			/*Õ¾µã»»³ËĞÅÏ¢»ñÈ¡end*/ 
+			/*ç«™ç‚¹æ¢ä¹˜ä¿¡æ¯è·å–end*/ 
 			
-			lInfo->station[j]=*sInfo;//½«Õ¾µãĞÅÏ¢¸³Öµµ½ÏßÂ· 
+			lInfo->station[j]=*sInfo;//å°†ç«™ç‚¹ä¿¡æ¯èµ‹å€¼åˆ°çº¿è·¯ 
 			
-			if(sInfo->stationid<MaxVertexNum && G.data[sInfo->stationid].stationid==0){//½«Õ¾µã¸³Öµµ½Í¼ĞÅÏ¢Í· 
+			if(sInfo->stationid<MaxVertexNum && G.data[sInfo->stationid].stationid==0){//å°†ç«™ç‚¹èµ‹å€¼åˆ°å›¾ä¿¡æ¯å¤´ 
 				G.vexnum++; 
 				G.data[sInfo->stationid]=*sInfo;
 				
 			}
-			/*¹¹ÔìÕ¾µãÁÚ½Ó¾ØÕó*/
+			/*æ„é€ ç«™ç‚¹é‚»æ¥çŸ©é˜µ*/
 			
-			if(GetIniKeyInt(linePath,tempch,"prior")==0 || GetIniKeyInt(linePath,tempch,"next")==0){//ÅĞ¶ÏÊÇ·ñ´æÔÚÇ°Çı»òºó¼Ì£¬Ôö¼ÓÕ¾µãÓÃ 
+			if(GetIniKeyInt(linePath,tempch,"prior")==0 || GetIniKeyInt(linePath,tempch,"next")==0){//åˆ¤æ–­æ˜¯å¦å­˜åœ¨å‰é©±æˆ–åç»§ï¼Œå¢åŠ ç«™ç‚¹ç”¨ 
 				if(j+1<=stationNum){
 					itoa(j+1,tempch,10);
 					temp=GetIniKeyInt(linePath,tempch,"stationid");
 					templa=atof(GetIniKeyString(linePath,tempch,"latitude"));
 					templng=atof(GetIniKeyString(linePath,tempch,"longitude"));
-					if(templa==0){//×öÊÇ·ñÎŞ¾­Î³¶ÈµÄÅĞ¶Ï£¬Èç¹ûÎŞÔòÓëÕ¾µãÍ¬¾­Î³¶È 
+					if(templa==0){//åšæ˜¯å¦æ— ç»çº¬åº¦çš„åˆ¤æ–­ï¼Œå¦‚æœæ— åˆ™ä¸ç«™ç‚¹åŒç»çº¬åº¦ 
 						templa=sInfo->latitude;
 					} 
 					if(templng==0){
 						templng=sInfo->longitude;
 					}
-					if(G.arcs[sInfo->stationid][temp].weight==0){//¾ØÕó¶Ô³Æ¸³Öµ 
+					if(G.arcs[sInfo->stationid][temp].weight==0){//çŸ©é˜µå¯¹ç§°èµ‹å€¼ 
 						G.arcs[sInfo->stationid][temp].weight=get_distance(sInfo->latitude,sInfo->longitude,templa,templng);
 						G.arcnum++;
 					}
@@ -202,13 +202,13 @@ void init(){
 					temp=GetIniKeyInt(linePath,tempch,"stationid");
 					templa=atof(GetIniKeyString(linePath,tempch,"latitude"));
 					templng=atof(GetIniKeyString(linePath,tempch,"longitude"));
-					if(templa==0){//×öÊÇ·ñÎŞ¾­Î³¶ÈµÄÅĞ¶Ï£¬Èç¹ûÎŞÔòÓëÕ¾µãÍ¬¾­Î³¶È 
+					if(templa==0){//åšæ˜¯å¦æ— ç»çº¬åº¦çš„åˆ¤æ–­ï¼Œå¦‚æœæ— åˆ™ä¸ç«™ç‚¹åŒç»çº¬åº¦ 
 						templa=sInfo->latitude;
 					} 
 					if(templng==0){
 						templng=sInfo->longitude;
 					}
-					if(G.arcs[sInfo->stationid][temp].weight==0){//¾ØÕó¶Ô³Æ¸³Öµ
+					if(G.arcs[sInfo->stationid][temp].weight==0){//çŸ©é˜µå¯¹ç§°èµ‹å€¼
 						G.arcs[sInfo->stationid][temp].weight=get_distance(sInfo->latitude,sInfo->longitude,templa,templng);
 						G.arcnum++;
 					}
@@ -218,20 +218,20 @@ void init(){
 					}
 				}	
 				
-			}else{//´æÔÚÔòÖ´ĞĞÕâÀï 
+			}else{//å­˜åœ¨åˆ™æ‰§è¡Œè¿™é‡Œ 
 				itoa(j,tempch,10);
 				prior=GetIniKeyInt(linePath,tempch,"priorstation");
 				next=GetIniKeyInt(linePath,tempch,"nextstation");
 				templa=atof(GetIniKeyString(linePath,tempch,"latitude"));
 				templng=atof(GetIniKeyString(linePath,tempch,"longitude"));
 				if(prior!=0 && prior<MaxVertexNum){
-					if(templa==0){//×öÊÇ·ñÎŞ¾­Î³¶ÈµÄÅĞ¶Ï£¬Èç¹ûÎŞÔò¸³Öµ¹ãÖİCBDÖé½­ĞÂ³Ç¾­Î³¶È 
+					if(templa==0){//åšæ˜¯å¦æ— ç»çº¬åº¦çš„åˆ¤æ–­ï¼Œå¦‚æœæ— åˆ™èµ‹å€¼å¹¿å·CBDç æ±Ÿæ–°åŸç»çº¬åº¦ 
 						templa=23.119293;
 					} 
 					if(templng==0){
 						templng=113.321206;
 					}
-					if(G.arcs[sInfo->stationid][prior].weight==0){//¾ØÕó¶Ô³Æ¸³Öµ
+					if(G.arcs[sInfo->stationid][prior].weight==0){//çŸ©é˜µå¯¹ç§°èµ‹å€¼
 						G.arcs[sInfo->stationid][prior].weight=get_distance(sInfo->latitude,sInfo->longitude,templa,templng);
 						G.arcnum++;
 					}
@@ -243,13 +243,13 @@ void init(){
 				
 				
 				if(next!=0 && next<MaxVertexNum){
-					if(templa==0){//×öÊÇ·ñÎŞ¾­Î³¶ÈµÄÅĞ¶Ï£¬Èç¹ûÎŞÔò¸³Öµ¹ãÖİCBDÖé½­ĞÂ³Ç¾­Î³¶È 
+					if(templa==0){//åšæ˜¯å¦æ— ç»çº¬åº¦çš„åˆ¤æ–­ï¼Œå¦‚æœæ— åˆ™èµ‹å€¼å¹¿å·CBDç æ±Ÿæ–°åŸç»çº¬åº¦ 
 						templa=23.119293;
 					} 
 					if(templng==0){
 						templng=113.321206;
 					}
-					if(G.arcs[sInfo->stationid][next].weight==0){//¾ØÕó¶Ô³Æ¸³Öµ
+					if(G.arcs[sInfo->stationid][next].weight==0){//çŸ©é˜µå¯¹ç§°èµ‹å€¼
 						G.arcs[sInfo->stationid][next].weight=get_distance(sInfo->latitude,sInfo->longitude,templa,templng);
 						G.arcnum++;
 					}
@@ -265,32 +265,32 @@ void init(){
 		L[i]=*lInfo;
 	}
 	
-	printf("¶¥µãÊı£º%d,±ßÊı£º%d",G.vexnum,G.arcnum);
+	printf("é¡¶ç‚¹æ•°ï¼š%d,è¾¹æ•°ï¼š%d",G.vexnum,G.arcnum);
 	
 }
 
-/*Ö÷²Ëµ¥*/ 
+/*ä¸»èœå•*/ 
 void menu(int opt){
 	char ch;
 	system("cls");
-	if(opt==1){//ÓÃ»§Ä£Ê½ 
+	if(opt==1){//ç”¨æˆ·æ¨¡å¼ 
 		printf("\n\n");
-		printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
-		printf("\t\t\t\t\t|     ¡¾ »¶Ó­Ê¹ÓÃµØÌúĞÅÏ¢²éÑ¯ÏµÍ³ ¡¿     |\n");
+		printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
+		printf("\t\t\t\t\t|     ã€ æ¬¢è¿ä½¿ç”¨åœ°é“ä¿¡æ¯æŸ¥è¯¢ç³»ç»Ÿ ã€‘     |\n");
 		printf("\t\t\t\t\t|               ");
 		color(2);
-		printf("¡¾ÓÃ»§Ä£Ê½¡¿");
+		printf("ã€ç”¨æˆ·æ¨¡å¼ã€‘");
 		color(7);
 		printf("             |\n");
-		printf("\t\t\t\t\t|   1.Â·Ïß²éÑ¯                           |\n");
-		printf("\t\t\t\t\t|   2.Õ¾µãĞÅÏ¢²éÑ¯                       |\n");
-//		printf("\t\t\t\t\t|   3.µØÍ¼²é¿´                           |\n");
-//		printf("\t\t\t\t\t|   4.Æ±¼Û²éÑ¯                           |\n");
-		printf("\t\t\t\t\t|   3.Æ±¼Û²éÑ¯                           |\n");
-		printf("\t\t\t\t\t|   4.ÏßÂ·²é¿´                           |\n");
-		printf("\t\t\t\t\t|                                 q.·µ»Ø |\n");
-		printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
-		printf("\t\t\t\t\tÇëÊäÈëĞòºÅ¡¾  ¡¿\b\b\b\b");
+		printf("\t\t\t\t\t|   1.è·¯çº¿æŸ¥è¯¢                           |\n");
+		printf("\t\t\t\t\t|   2.ç«™ç‚¹ä¿¡æ¯æŸ¥è¯¢                       |\n");
+//		printf("\t\t\t\t\t|   3.åœ°å›¾æŸ¥çœ‹                           |\n");
+//		printf("\t\t\t\t\t|   4.ç¥¨ä»·æŸ¥è¯¢                           |\n");
+		printf("\t\t\t\t\t|   3.ç¥¨ä»·æŸ¥è¯¢                           |\n");
+		printf("\t\t\t\t\t|   4.çº¿è·¯æŸ¥çœ‹                           |\n");
+		printf("\t\t\t\t\t|                                 q.è¿”å› |\n");
+		printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
+		printf("\t\t\t\t\tè¯·è¾“å…¥åºå·ã€  ã€‘\b\b\b\b");
 		ch=getch();
 		printf("%c",ch);
 		switch(ch){
@@ -303,30 +303,30 @@ void menu(int opt){
 			case 'q':mylogin();break;
 			default:
 				color(4);
-				printf("\n\t\t\t\t\tÊäÈë´íÎó£¬1ÃëºóÖØÊÔ\b\b\b");
+				printf("\n\t\t\t\t\tè¾“å…¥é”™è¯¯ï¼Œ1ç§’åé‡è¯•\b\b\b");
 				color(7);
 				Sleep(1000); 
 				menu(1);break;
 		}
-	}else if(opt==2){//¹ÜÀíÔ±Ä£Ê½ 
+	}else if(opt==2){//ç®¡ç†å‘˜æ¨¡å¼ 
 		printf("\n\n");
-		printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
-		printf("\t\t\t\t\t|     ¡¾ »¶Ó­Ê¹ÓÃµØÌúĞÅÏ¢²éÑ¯ÏµÍ³ ¡¿     |\n");
+		printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
+		printf("\t\t\t\t\t|     ã€ æ¬¢è¿ä½¿ç”¨åœ°é“ä¿¡æ¯æŸ¥è¯¢ç³»ç»Ÿ ã€‘     |\n");
 		printf("\t\t\t\t\t|              ");
 		color(4);
-		printf("¡¾¹ÜÀíÔ±Ä£Ê½¡¿");
+		printf("ã€ç®¡ç†å‘˜æ¨¡å¼ã€‘");
 		color(7);
 		printf("            |\n");
-		printf("\t\t\t\t\t|   1.Õ¾µãÌí¼Ó                           |\n");
-		printf("\t\t\t\t\t|   2.Õ¾µãÉ¾³ı                           |\n");
-		printf("\t\t\t\t\t|   3.ÏßÂ·Ìí¼Ó                           |\n");
-		printf("\t\t\t\t\t|   4.ÏßÂ·É¾³ı                           |\n");
-		printf("\t\t\t\t\t|   5.ÏßÂ·Õ¾µãÌí¼Ó                       |\n");
-		printf("\t\t\t\t\t|   6.ÏßÂ·ĞÅÏ¢ĞŞ¸Ä                       |\n");
-		printf("\t\t\t\t\t|   7.Õ¾µãĞÅÏ¢ĞŞ¸Ä                       |\n");
-		printf("\t\t\t\t\t|                                 q.·µ»Ø |\n");
-		printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
-		printf("\t\t\t\t\tÇëÊäÈëĞòºÅ¡¾  ¡¿\b\b\b\b");
+		printf("\t\t\t\t\t|   1.ç«™ç‚¹æ·»åŠ                            |\n");
+		printf("\t\t\t\t\t|   2.ç«™ç‚¹åˆ é™¤                           |\n");
+		printf("\t\t\t\t\t|   3.çº¿è·¯æ·»åŠ                            |\n");
+		printf("\t\t\t\t\t|   4.çº¿è·¯åˆ é™¤                           |\n");
+		printf("\t\t\t\t\t|   5.çº¿è·¯ç«™ç‚¹æ·»åŠ                        |\n");
+		printf("\t\t\t\t\t|   6.çº¿è·¯ä¿¡æ¯ä¿®æ”¹                       |\n");
+		printf("\t\t\t\t\t|   7.ç«™ç‚¹ä¿¡æ¯ä¿®æ”¹                       |\n");
+		printf("\t\t\t\t\t|                                 q.è¿”å› |\n");
+		printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
+		printf("\t\t\t\t\tè¯·è¾“å…¥åºå·ã€  ã€‘\b\b\b\b");
 		ch=getch();
 		printf("%c",ch);
 		switch(ch){
@@ -340,7 +340,7 @@ void menu(int opt){
 			case 'q':mylogin();break;
 			default:
 				color(4);
-				printf("\n\t\t\t\t\tÊäÈë´íÎó£¬1ÃëºóÖØÊÔ...");
+				printf("\n\t\t\t\t\tè¾“å…¥é”™è¯¯ï¼Œ1ç§’åé‡è¯•...");
 				color(7);
 				Sleep(1000); 
 				menu(2);break;
@@ -349,21 +349,21 @@ void menu(int opt){
 	
 }
 
-/*¹ÜÀíÔ±ĞŞ¸Ä²Ëµ¥*/ 
-void ModifyInfoMenu(int opt){//1ĞŞ¸ÄÏßÂ·ĞÅÏ¢£¬2ĞŞ¸ÄÕ¾µãĞÅÏ¢ 
+/*ç®¡ç†å‘˜ä¿®æ”¹èœå•*/ 
+void ModifyInfoMenu(int opt){//1ä¿®æ”¹çº¿è·¯ä¿¡æ¯ï¼Œ2ä¿®æ”¹ç«™ç‚¹ä¿¡æ¯ 
 	char ch; 
 	system("cls");
 	if(opt==1){
 		printf("\n\n");
-		printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
-		printf("\t\t\t\t\t|            ¡¾ ¹ÜÀíÔ±Ä£Ê½ ¡¿            |\n");
-		printf("\t\t\t\t\t|            ¡¾ÏßÂ·ĞÅÏ¢ĞŞ¸Ä¡¿            |\n");
-		printf("\t\t\t\t\t|   1.ÏßÂ·Ãû³ÆĞŞ¸Ä                       |\n");
-		printf("\t\t\t\t\t|   2.Æ½¾ùµÈ´ıÊ±¼äĞŞ¸Ä                   |\n");
-//		printf("\t\t\t\t\t|   3.ÏßÂ·ÑÕÉ«ĞŞ¸Ä                       |\n");
-		printf("\t\t\t\t\t|                                 q.·µ»Ø |\n");
-		printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
-		printf("\t\t\t\t\tÇëÊäÈëĞòºÅ¡¾  ¡¿\b\b\b\b");
+		printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
+		printf("\t\t\t\t\t|            ã€ ç®¡ç†å‘˜æ¨¡å¼ ã€‘            |\n");
+		printf("\t\t\t\t\t|            ã€çº¿è·¯ä¿¡æ¯ä¿®æ”¹ã€‘            |\n");
+		printf("\t\t\t\t\t|   1.çº¿è·¯åç§°ä¿®æ”¹                       |\n");
+		printf("\t\t\t\t\t|   2.å¹³å‡ç­‰å¾…æ—¶é—´ä¿®æ”¹                   |\n");
+//		printf("\t\t\t\t\t|   3.çº¿è·¯é¢œè‰²ä¿®æ”¹                       |\n");
+		printf("\t\t\t\t\t|                                 q.è¿”å› |\n");
+		printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
+		printf("\t\t\t\t\tè¯·è¾“å…¥åºå·ã€  ã€‘\b\b\b\b");
 		ch=getch();
 		printf("%c",ch);
 		switch(ch){
@@ -373,23 +373,23 @@ void ModifyInfoMenu(int opt){//1ĞŞ¸ÄÏßÂ·ĞÅÏ¢£¬2ĞŞ¸ÄÕ¾µãĞÅÏ¢
 			case 'q':menu(2);break;
 			default:
 				color(4);
-				printf("\n\t\t\t\t\tÊäÈë´íÎó£¬1ÃëºóÖØÊÔ...");
+				printf("\n\t\t\t\t\tè¾“å…¥é”™è¯¯ï¼Œ1ç§’åé‡è¯•...");
 				color(7);
 				Sleep(1000); 
 				ModifyInfoMenu(1);break;
 		}
 	}else if(opt==2){
 		printf("\n\n");
-		printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
-		printf("\t\t\t\t\t|            ¡¾ ¹ÜÀíÔ±Ä£Ê½ ¡¿            |\n");
-		printf("\t\t\t\t\t|            ¡¾Õ¾µãĞÅÏ¢ĞŞ¸Ä¡¿            |\n");
-		printf("\t\t\t\t\t|   1.Õ¾µãÃû³ÆĞŞ¸Ä                       |\n");
-		printf("\t\t\t\t\t|   2.Í£Ê¼Ê±¼äĞŞ¸Ä                       |\n");
-		printf("\t\t\t\t\t|   3.¾­Î³¶ÈĞŞ¸Ä                         |\n");
-		printf("\t\t\t\t\t|   4.Õ¾µã³ö¿ÚĞŞ¸Ä                       |\n");
-		printf("\t\t\t\t\t|                                 q.·µ»Ø |\n");
-		printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
-		printf("\t\t\t\t\tÇëÊäÈëĞòºÅ¡¾  ¡¿\b\b\b\b");
+		printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
+		printf("\t\t\t\t\t|            ã€ ç®¡ç†å‘˜æ¨¡å¼ ã€‘            |\n");
+		printf("\t\t\t\t\t|            ã€ç«™ç‚¹ä¿¡æ¯ä¿®æ”¹ã€‘            |\n");
+		printf("\t\t\t\t\t|   1.ç«™ç‚¹åç§°ä¿®æ”¹                       |\n");
+		printf("\t\t\t\t\t|   2.åœå§‹æ—¶é—´ä¿®æ”¹                       |\n");
+		printf("\t\t\t\t\t|   3.ç»çº¬åº¦ä¿®æ”¹                         |\n");
+		printf("\t\t\t\t\t|   4.ç«™ç‚¹å‡ºå£ä¿®æ”¹                       |\n");
+		printf("\t\t\t\t\t|                                 q.è¿”å› |\n");
+		printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
+		printf("\t\t\t\t\tè¯·è¾“å…¥åºå·ã€  ã€‘\b\b\b\b");
 		ch=getch();
 		printf("%c",ch);
 		switch(ch){
@@ -401,7 +401,7 @@ void ModifyInfoMenu(int opt){//1ĞŞ¸ÄÏßÂ·ĞÅÏ¢£¬2ĞŞ¸ÄÕ¾µãĞÅÏ¢
 			case 'q':menu(2);break;
 			default:
 				color(4);
-				printf("\n\t\t\t\t\tÊäÈë´íÎó£¬1ÃëºóÖØÊÔ...");
+				printf("\n\t\t\t\t\tè¾“å…¥é”™è¯¯ï¼Œ1ç§’åé‡è¯•...");
 				color(7);
 				Sleep(1000); 
 				ModifyInfoMenu(2);break;
@@ -411,60 +411,60 @@ void ModifyInfoMenu(int opt){//1ĞŞ¸ÄÏßÂ·ĞÅÏ¢£¬2ĞŞ¸ÄÕ¾µãĞÅÏ¢
 	
 }
 
-/*µÇÂ½*/ 
+/*ç™»é™†*/ 
 void mylogin(void){
 	int input,i,time=1;
 	char pr[20],word,ch;
 	system("cls");
 	printf("\n\n");
-	printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
+	printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
 	printf("\t\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t\t|     ¡¾ »¶Ó­Ê¹ÓÃµØÌúĞÅÏ¢²éÑ¯ÏµÍ³ ¡¿     |\n");
+	printf("\t\t\t\t\t|     ã€ æ¬¢è¿ä½¿ç”¨åœ°é“ä¿¡æ¯æŸ¥è¯¢ç³»ç»Ÿ ã€‘     |\n");
 	printf("\t\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t\t|             ÖÆ×÷ÈË£ºÌ·¿µºè             |\n");
+	printf("\t\t\t\t\t|            åˆ¶ä½œäººï¼šShadowY           |\n");
 	printf("\t\t\t\t\t|                                        |\n");
 	printf("\t\t\t\t\t|   ");
 	color(2);
-	printf("1.ÓÃ»§Ä£Ê½");
+	printf("1.ç”¨æˆ·æ¨¡å¼");
 	color(7);
 	printf("            ");
 	color(4);
-	printf("2.¹ÜÀíÔ±Ä£Ê½");
+	printf("2.ç®¡ç†å‘˜æ¨¡å¼");
 	color(7);
 	printf("   |\n");
 	printf("\t\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t\t|                                 0.ÍË³ö |\n");
-	printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
-	printf("\t\t\t\t\t ÇëÑ¡ÔñÄ£Ê½£º¡¾  ¡¿\b\b\b\b");
+	printf("\t\t\t\t\t|                                 0.é€€å‡º |\n");
+	printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
+	printf("\t\t\t\t\t è¯·é€‰æ‹©æ¨¡å¼ï¼šã€  ã€‘\b\b\b\b");
 //	scanf("%1d",&input);
 	ch=getch(); 
 	printf("%c",ch);
 	if(ch=='0'){
-		printf("\n\t\t\t\t\tÇëÉÔºó..."); 
+		printf("\n\t\t\t\t\tè¯·ç¨å..."); 
 		Sleep(300); 
 		quit();
 	}else if(ch=='1'){
-		printf("\n\t\t\t\t\tÇëÉÔºó..."); 
+		printf("\n\t\t\t\t\tè¯·ç¨å..."); 
 		Sleep(300); 
 		menu(1);
 	}else if(ch=='2'){
-		printf("\n\t\t\t\t\tÇëÉÔºó..."); 
+		printf("\n\t\t\t\t\tè¯·ç¨å..."); 
 		Sleep(300); 
 		while(1){
 			system("CLS");
 			printf("\n\n");
-			printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
+			printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
 			printf("\t\t\t\t\t|                                        |\n");
-			printf("\t\t\t\t\t|       ¡¾ µ±Ç°Ä£Ê½£º¹ÜÀíÔ±Ä£Ê½ ¡¿       |\n");
+			printf("\t\t\t\t\t|       ã€ å½“å‰æ¨¡å¼ï¼šç®¡ç†å‘˜æ¨¡å¼ ã€‘       |\n");
 			printf("\t\t\t\t\t|                                        |\n");
-			printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
-			printf("\t\t\t\t\t ÇëÊäÈëÃÜÂë£º");
+			printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
+			printf("\t\t\t\t\t è¯·è¾“å…¥å¯†ç ï¼š");
 			i=0;
 			while((word=getch())!='\r') 
 			{
 	            if(word=='\b' && i>0) 
 				{
-	                printf("\b \b");                 /*'\b'ºóÃæ¸úÁËÒ»¸ö¿Õ¸ñ' 'À´Ìæ»»ÁË×îºóÒ»¸ö×Ö·û*/
+	                printf("\b \b");                 /*'\b'åé¢è·Ÿäº†ä¸€ä¸ªç©ºæ ¼' 'æ¥æ›¿æ¢äº†æœ€åä¸€ä¸ªå­—ç¬¦*/
 	                --i;
 	            }
 	            else if(word!='\b') 
@@ -477,7 +477,7 @@ void mylogin(void){
 			if(strcmp(pr,ADMINPWD)==0)
 			{
 				color(2);
-				printf("\n\t\t\t\t\t ¡¾ÃÜÂëÕıÈ·!¡¿\n");
+				printf("\n\t\t\t\t\t ã€å¯†ç æ­£ç¡®!ã€‘\n");
 				color(7);
 				Sleep(500);
 				system("CLS");
@@ -488,10 +488,10 @@ void mylogin(void){
 				if(time>=MAXKEYERR){
 //					system("CLS");
 					color(4);
-					printf("\n\t\t\t\t¡¾ÃÜÂë´íÎó¡¿´ÎÊı³¬¹ı %d ´Î",MAXKEYERR);
-					printf("\n\t\t\t\t2Ãëºó·µ»ØÖ÷½çÃæ...");
+					printf("\n\t\t\t\tã€å¯†ç é”™è¯¯ã€‘æ¬¡æ•°è¶…è¿‡ %d æ¬¡",MAXKEYERR);
+					printf("\n\t\t\t\t2ç§’åè¿”å›ä¸»ç•Œé¢...");
 					Sleep(1000);
-					printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b1Ãëºó·µ»ØÖ÷½çÃæ...");
+					printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b1ç§’åè¿”å›ä¸»ç•Œé¢...");
 					color(7);
 					Sleep(1000);
 					system("CLS");
@@ -501,10 +501,10 @@ void mylogin(void){
 				}
 				time++;
 				color(4);
-				printf("\n\t\t\t\t\t ¡¾ÃÜÂëÓĞÎó!¡¿\n");
-				printf("\n\t\t\t\t\t »¹ÓĞ2Ãë¿ÉÒÔÖØĞÂÊäÈëÃÜÂë...");
+				printf("\n\t\t\t\t\t ã€å¯†ç æœ‰è¯¯!ã€‘\n");
+				printf("\n\t\t\t\t\t è¿˜æœ‰2ç§’å¯ä»¥é‡æ–°è¾“å…¥å¯†ç ...");
 				Sleep(1000);
-				printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b1Ãë¿ÉÒÔÖØĞÂÊäÈëÃÜÂë...");
+				printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b1ç§’å¯ä»¥é‡æ–°è¾“å…¥å¯†ç ...");
 				color(7);
 				Sleep(1000);
 				system("CLS");
@@ -514,7 +514,7 @@ void mylogin(void){
 		menu(2);
 	}else{
 		color(4);
-		printf("\n\t\t\t\t\t¡¾ÊäÈë´íÎó¡¿1ÃëºóÖØÊÔ\b\b");
+		printf("\n\t\t\t\t\tã€è¾“å…¥é”™è¯¯ã€‘1ç§’åé‡è¯•\b\b");
 		color(7);
 		Sleep(1000);
 		mylogin();
@@ -525,15 +525,15 @@ void mylogin(void){
 void quit(void){
 	system("cls");
 	printf("\n\n");
-	printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
+	printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
 	printf("\t\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t\t|                ¸ĞĞ»Ê¹ÓÃ                |\n");
-	printf("\t\t\t\t\t|         ¡¾ µØÌúĞÅÏ¢²éÑ¯ÏµÍ³ ¡¿         |\n");
-	printf("\t\t\t\t\t|   £¨Metro Information Query System£©   |\n");
+	printf("\t\t\t\t\t|                æ„Ÿè°¢ä½¿ç”¨                |\n");
+	printf("\t\t\t\t\t|         ã€ åœ°é“ä¿¡æ¯æŸ¥è¯¢ç³»ç»Ÿ ã€‘         |\n");
+	printf("\t\t\t\t\t|   ï¼ˆMetro Information Query Systemï¼‰   |\n");
 	printf("\t\t\t\t\t|                                        |\n");
 	printf("\t\t\t\t\t|                                        |\n");
-	printf("\t\t\t\t\t|            Made By Ì·¿µºè              |\n");
-	printf("\t\t\t\t\t|¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª|\n");
+	printf("\t\t\t\t\t|           Made By ShadowY             |\n");
+	printf("\t\t\t\t\t|â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”|\n");
 }
 
 int main(void) {
